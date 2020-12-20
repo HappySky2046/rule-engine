@@ -1,5 +1,7 @@
 package com.zjb.ruleengine.core.rule;
 
+import com.google.common.collect.Sets;
+import com.zjb.ruleengine.core.Collectors;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.Execute;
 import com.zjb.ruleengine.core.condition.AbstractCondition;
@@ -7,19 +9,22 @@ import com.zjb.ruleengine.core.config.PostProcessor;
 import com.zjb.ruleengine.core.config.PreProcessor;
 import com.zjb.ruleengine.core.Weight;
 import com.zjb.ruleengine.core.enums.RuleResultEnum;
+import com.zjb.ruleengine.core.value.Element;
 import com.zjb.ruleengine.core.value.Value;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 
 /**
  * @author 赵静波 <zjbhnay@163.com>
  */
-public abstract class AbstractRule implements Execute, Weight, Serializable {
+public abstract class AbstractRule implements Execute, Weight, Collectors, Serializable {
 
     private static final Logger log = LogManager.getLogger();
     private static final long serialVersionUID = 6727628276386208126L;
@@ -51,6 +56,14 @@ public abstract class AbstractRule implements Execute, Weight, Serializable {
         this.condition = condition;
         this.action = action;
         this.build();
+    }
+
+    @Override
+    public Collection<Element> collectParameter() {
+        final HashSet<Element> parameterNames = Sets.newHashSet();
+        parameterNames.addAll(condition.collectParameter());
+        parameterNames.addAll(action.collectParameter());
+        return parameterNames;
     }
 
     /**

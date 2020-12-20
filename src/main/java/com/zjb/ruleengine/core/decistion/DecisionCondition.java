@@ -1,4 +1,4 @@
-package com.zjb.ruleengine.core.decistiontree;
+package com.zjb.ruleengine.core.decistion;
 
 import com.zjb.ruleengine.core.condition.DefaultCondition;
 import com.zjb.ruleengine.core.enums.Symbol;

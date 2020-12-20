@@ -31,6 +31,10 @@ public enum DataTypeEnum implements Serializable {
         this.clazz = clazz;
     }
 
+    public Class getClazz() {
+        return clazz;
+    }
+
     public static DataTypeEnum getDataTypeByName(String name) {
 
         return dataTypeMap.get(name);
