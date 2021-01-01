@@ -10,7 +10,8 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
- * action的执行
+ * @author 赵静波
+ * @date 2020-09-30 16:15:29
  */
 public abstract class Function<T, R> implements Serializable {
 

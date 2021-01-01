@@ -13,12 +13,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈String 处理方案〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/7/1
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-09-30 14:06:41
  */
 public class NumberEvaluateStrategy implements Evaluate {
     private static final Logger log = LogManager.getLogger();

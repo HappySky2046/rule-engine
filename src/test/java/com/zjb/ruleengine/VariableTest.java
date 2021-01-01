@@ -10,8 +10,8 @@ import com.zjb.ruleengine.core.value.*;
 import java.util.Collection;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-04
+ * @author 赵静波
+ * @date 2020-12-04 17:25:54
  */
 public class VariableTest {
     public static void main(String[] args) {

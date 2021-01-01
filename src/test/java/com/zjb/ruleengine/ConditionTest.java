@@ -14,8 +14,8 @@ import org.junit.Test;
 import java.util.Arrays;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-08
+ * @author 赵静波
+ * @date 2020-12-08 20:38:05
  */
 public class ConditionTest {
     /**

@@ -18,8 +18,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-08
+ * @author 赵静波
+ * @date 2020-12-08 14:03:02
  */
 public class DecisionRuleSetTest {
 

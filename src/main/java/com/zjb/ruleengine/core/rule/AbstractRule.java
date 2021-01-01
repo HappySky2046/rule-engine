@@ -22,7 +22,8 @@ import java.util.List;
 
 
 /**
- * @author 赵静波 <zjbhnay@163.com>
+ * @author 赵静波
+ * @date 2020-09-30 15:29:06
  */
 public abstract class AbstractRule implements Execute, Weight, Collectors, Serializable {
 

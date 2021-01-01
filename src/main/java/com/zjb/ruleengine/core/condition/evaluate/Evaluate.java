@@ -6,12 +6,8 @@ import com.zjb.ruleengine.core.enums.Symbol;
 import java.io.Serializable;
 
 /**
- * 〈一句话功能简述〉<br> 
- * 〈执行接口〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/7/1
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-07-13 10:11:00
  */
 public interface Evaluate extends Serializable {
 

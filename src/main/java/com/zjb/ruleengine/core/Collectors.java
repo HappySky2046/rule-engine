@@ -5,8 +5,8 @@ import com.zjb.ruleengine.core.value.Element;
 import java.util.Collection;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-07
+ * @author 赵静波
+ * @date 2020-12-07 10:44:12
  */
 public interface Collectors {
 

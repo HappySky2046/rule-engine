@@ -8,6 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 
+/**
+ * @author 赵静波
+ * @date 2020-09-30 14:06:40
+ */
 public class Rule extends AbstractRule implements Serializable {
 
     private static final Logger log = LogManager.getLogger();

@@ -19,11 +19,9 @@ import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy
 import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy.TRUE_STRING;
 
 /**
- * 将Value赋值给某处，来源可以是：固定值，元素/变量，规则结果
- *
- * @author zjb
- * @Date 07/17/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-15 11:30:29
+ */
 
 public abstract class Value implements Serializable, Weight, Collectors {
     private static final Logger log = LogManager.getLogger();

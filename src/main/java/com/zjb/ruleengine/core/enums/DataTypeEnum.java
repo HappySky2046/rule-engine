@@ -7,12 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈数据类型〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/6/25
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-09-15 11:30:29
  */
 public enum DataTypeEnum implements Serializable {
     NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class),;

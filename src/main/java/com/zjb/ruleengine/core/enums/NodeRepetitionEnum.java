@@ -8,6 +8,10 @@ public enum NodeRepetitionEnum implements Serializable {
 
     NONE(0), FRONT(1), BEHIND(2);
 
+    /**
+     * @author 赵静波
+     * @date 2020-08-24 18:42:50
+     */
     private Integer status;
     private static Map<Integer, NodeRepetitionEnum> nodeRepetitionEnum = new HashMap<>();
     private static Map<String, NodeRepetitionEnum> nameRepetitionEnum = new HashMap<>();

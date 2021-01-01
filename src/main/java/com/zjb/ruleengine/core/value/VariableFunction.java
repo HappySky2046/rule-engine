@@ -5,8 +5,8 @@ import org.apache.commons.lang3.Validate;
 import java.util.Objects;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-01
+ * @author 赵静波
+ * @date 2020-12-01 14:26:36
  */
 public class VariableFunction<T> {
 

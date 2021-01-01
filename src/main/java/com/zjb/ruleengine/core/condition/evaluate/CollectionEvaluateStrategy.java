@@ -14,12 +14,8 @@ import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy
 import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy.TRUE_STRING;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈String 处理方案〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/7/1
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-07-13 10:11:00
  */
 //@Slf4j
 public class CollectionEvaluateStrategy implements Evaluate {

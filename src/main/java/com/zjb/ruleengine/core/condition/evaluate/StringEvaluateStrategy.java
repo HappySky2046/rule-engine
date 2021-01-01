@@ -7,12 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈String 处理方案〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/7/1
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-08-24 18:41:23
  */
 public class StringEvaluateStrategy implements Evaluate {
 

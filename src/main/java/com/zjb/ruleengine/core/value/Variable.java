@@ -19,11 +19,9 @@ import java.util.Set;
 
 
 /**
- * 原始变量，execute的返回值是intandceof {@link Number} 或者 {@link String}
- *
- * @author zjb
- * @Date 07/11/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-30 16:15:29
+ */
 public class Variable extends Value {
 
     private static final Logger log = LogManager.getLogger();

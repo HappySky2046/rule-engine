@@ -17,11 +17,9 @@ import java.util.*;
 
 
 /**
- * 表达式条件
- *
- * @author zjb
- * @Date 07/11/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-30 14:06:41
+ */
 public class DefaultCondition extends AbstractCondition {
     private static final Logger log = LogManager.getLogger();
     /**

@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author 赵静波
+ * @date 2020-07-13 10:11:00
+ */
 @SuppressWarnings("unchecked")
 public class BaseContextImpl implements Context, Serializable {
     private static final long serialVersionUID = -7928799720602896017L;

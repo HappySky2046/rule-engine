@@ -8,12 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈1〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/6/25
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-09-15 11:30:30
  */
 public enum Symbol implements Serializable {
     eq(DataTypeEnum.NUMBER, "=", "等于"),

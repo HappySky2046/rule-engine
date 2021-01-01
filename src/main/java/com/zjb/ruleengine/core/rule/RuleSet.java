@@ -20,9 +20,8 @@ import java.util.stream.Collectors;
 
 
 /**
- * 规则集接口
- *
- * @author 46133
+ * @author 赵静波
+ * @date 2020-09-30 16:15:29
  */
 public class RuleSet implements Execute {
 

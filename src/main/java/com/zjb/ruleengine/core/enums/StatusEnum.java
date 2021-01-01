@@ -6,12 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈状态枚举类〉
- *
- * @author v-zhaojingbo.ea
- * @create 2019/7/18
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-08-24 18:42:50
  */
 public enum StatusEnum implements Serializable {
     enable(1), disable(0);

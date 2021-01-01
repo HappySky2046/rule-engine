@@ -5,8 +5,8 @@ import com.zjb.ruleengine.core.function.HttpFunction;
 import org.junit.Test;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-20
+ * @author 赵静波
+ * @date 2020-12-20 18:33:04
  */
 public class HttpFunctionTest {
     @Test
@@ -20,7 +20,7 @@ public class HttpFunctionTest {
 
         @Override
         protected String getUrl() {
-            return "http://rap2api.taobao.org/app/mock/data/1829389";
+            return "http://localhost:8080/test";
         }
     }
 }

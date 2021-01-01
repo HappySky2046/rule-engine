@@ -7,8 +7,8 @@ import com.zjb.ruleengine.core.value.VariableFunction;
 import org.junit.Test;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-07
+ * @author 赵静波
+ * @date 2020-12-07 14:28:44
  */
 public class FunctionTest extends BaseTest {
 

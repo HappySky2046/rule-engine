@@ -4,7 +4,8 @@ import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 
 /**
- * 规则执行后置处理器
+ * @author 赵静波
+ * @date 2020-08-25 14:31:19
  */
 public interface PostProcessor {
     /**

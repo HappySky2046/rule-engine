@@ -4,6 +4,10 @@ import com.zjb.ruleengine.core.rule.AbstractRule;
 
 import java.io.Serializable;
 
+/**
+ * @author 赵静波
+ * @date 2020-09-30 16:22:06
+ */
 public interface RuleEngine extends Serializable {
     /**
      * @return void

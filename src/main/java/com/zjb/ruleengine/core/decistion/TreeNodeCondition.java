@@ -9,6 +9,10 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 
 
+/**
+ * @author 赵静波
+ * @date 2020-08-24 19:00:38
+ */
 public class TreeNodeCondition implements Serializable {
     /**
      * is leaf node, if current node have not child and only have result, it is leaf
