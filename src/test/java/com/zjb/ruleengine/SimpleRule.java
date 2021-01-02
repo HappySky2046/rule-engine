@@ -12,7 +12,7 @@ import com.zjb.ruleengine.core.value.Element;
 import org.junit.Test;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
+ * @author 赵静波
  * Created on 2021-01-02
  */
 public class SimpleRule extends BaseTest {
@@ -26,10 +26,9 @@ public class SimpleRule extends BaseTest {
     @Test
     public void test() throws Exception {
         DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
-
         ruleEngine.addRule(getRule());
         final BaseContextImpl context = new BaseContextImpl();
-        context.put(element_code, 18);
+        context.put(element_code, 20);
         final Object simple_rule1 = ruleEngine.execute(rule_id, context);
         System.out.println(simple_rule1);
 
