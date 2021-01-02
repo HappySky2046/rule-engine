@@ -25,14 +25,14 @@ public interface RuleEngine extends Serializable {
      * @Param [ruleSet]
      * @return void
      **/
-    void addRuleSet(AbstractRule rule);
+    void addRule(AbstractRule rule);
 
     /**
      * 根据ruleSetCode 删除 RuleSet
      * @param ruleId
      * @return
      */
-    void removeRuleSet(String ruleId);
+    void removeRule(String ruleId);
 
 
 }

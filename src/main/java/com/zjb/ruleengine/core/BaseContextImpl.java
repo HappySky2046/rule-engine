@@ -56,9 +56,6 @@ public class BaseContextImpl implements Context, Serializable {
         return itemMap;
     }
 
-    public void setItemMap(Map<String, Object> itemMap) {
-        this.itemMap = itemMap;
-    }
     @Override
     public int size() {
         return itemMap.size();

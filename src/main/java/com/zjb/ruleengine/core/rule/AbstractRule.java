@@ -15,10 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -93,15 +90,20 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         log.debug("开始执行规则：{}", id);
         Object result;
         boolean conditionResult = executeCondition(context);
-        postProcessors.forEach(postProcessor ->
-                postProcessor.postProcessorBeforeActionExecute(this, context));
+        if (Objects.nonNull(postProcessors)) {
+            postProcessors.forEach(postProcessor ->
+                    postProcessor.postProcessorBeforeActionExecute(this, context));
+        }
+
         if (conditionResult) {
             result = action.getValue(context);
         }else{
             result = RuleResultEnum.NULL;
         }
-        for (PostProcessor postProcessor : postProcessors) {
-            result = postProcessor.afterProcessorBeforeActionExecute(this, context, result);
+        if (Objects.nonNull(postProcessors)) {
+            for (PostProcessor postProcessor : postProcessors) {
+                result = postProcessor.afterProcessorBeforeActionExecute(this, context, result);
+            }
         }
         log.debug("规则执行结果：{}", result);
         return result;

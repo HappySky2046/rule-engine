@@ -1,11 +1,13 @@
 package com.zjb.ruleengine.core;
 
+import cn.hutool.core.util.IdUtil;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
 import com.zjb.ruleengine.core.function.Function;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.slf4j.MDC;
 
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,17 +32,19 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
      **/
     @Override
     public Object execute(String ruleId, Context context) {
-        AbstractRule ruleSet = ruleMap.get(ruleId);
-        if (ruleSet == null) {
+        MDC.put("requestId", IdUtil.fastSimpleUUID());
+        AbstractRule rule = ruleMap.get(ruleId);
+        if (rule == null) {
             throw new RuleEngineException(String.format("not found %s rule", ruleId));
         }
-        log.debug("开始执行规则集{}", ruleId);
-        final Object result = ruleSet.execute(context);
+        log.debug("开始执行{}", ruleId);
+        final Object result = rule.execute(context);
+        MDC.clear();
         return result;
     }
 
     @Override
-    public void addRuleSet(AbstractRule rule) {
+    public void addRule(AbstractRule rule) {
         ruleMap.put(rule.getId(), rule);
     }
 
@@ -62,7 +66,7 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
     }
 
     @Override
-    public void removeRuleSet(String ruleSetId) {
+    public void removeRule(String ruleSetId) {
         if (ruleMap.containsKey(ruleSetId)) {
             ruleMap.remove(ruleSetId);
         }
