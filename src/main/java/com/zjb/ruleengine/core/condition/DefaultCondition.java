@@ -66,7 +66,7 @@ public class DefaultCondition extends AbstractCondition {
         Object leftValue = this.leftValue.getValue(context);
         Object rightValue = this.rightValue.getValue(context);
         final boolean result = evaluateMap.get(symbol.getType()).evaluate(leftValue, rightValue, symbol);
-        log.debug("条件{}--{}{}{}执行，执行结果{}",getId(),leftValue,symbol.getSymbol(),rightValue,result);
+        log.debug("条件{}--【 {} {} {} 】执行，执行结果{}",getId(),leftValue,symbol.getSymbol(),rightValue,result);
         return result;
     }
 
