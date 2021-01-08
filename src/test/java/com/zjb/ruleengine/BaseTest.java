@@ -1,6 +1,7 @@
 package com.zjb.ruleengine;
 
 import cn.hutool.core.util.ClassUtil;
+import com.zjb.ruleengine.core.DefaultRuleEngine;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.function.Function;
 
@@ -20,5 +21,13 @@ public class BaseTest {
 
         }
         return holder;
+    }
+
+    public void registerFunction(DefaultRuleEngine ruleEngine) throws Exception{
+        final Set<Class<?>> classes = ClassUtil.scanPackage("com.zjb.ruleengine", clazz -> Function.class.isAssignableFrom(clazz) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()));
+        for (Class<?> aClass : classes) {
+            ruleEngine.registerFunction((Function) aClass.newInstance());
+
+        }
     }
 }

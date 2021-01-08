@@ -34,7 +34,11 @@ public abstract class HttpFunction<T, R> extends Function<T, R> {
      */
     protected R post(Context context, T param) {
         try {
-            return parseObject(HttpUtil.post(getUrl(), objectMapper.writeValueAsString(getParam(context, param))));
+            final String paramStr = objectMapper.writeValueAsString(getParam(context, param));
+            final String url = getUrl();
+            final String result = HttpUtil.post(url, objectMapper.writeValueAsString(getParam(context, param)));
+            log.debug("接口url {},请求参数 {}，返回结果 {}", url, paramStr, result);
+            return parseObject(result);
         } catch (JsonProcessingException e) {
             log.error("{}", e);
             throw new RuleExecuteException("接口返回值parse错误{}", e);

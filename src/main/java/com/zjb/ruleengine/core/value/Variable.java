@@ -111,6 +111,13 @@ public class Variable extends Value {
     @Override
     public Object getValue(Context context) {
         final Object parameter = function.getParameter();
+        if (!ClassUtil.isSimpleValueType(parameter.getClass())) {
+            final Field[] declaredFields = parameter.getClass().getDeclaredFields();
+            for (Field declaredField : declaredFields) {
+                System.out.println();
+            }
+        }
+
         final Function function = functionHolder.getFunction(this.function.getFunctionName());
         return function.execute(context, parameter);
     }

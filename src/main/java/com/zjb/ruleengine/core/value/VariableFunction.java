@@ -25,9 +25,6 @@ public class VariableFunction<T> {
         this.parameter = parameter;
     }
 
-    public VariableFunction() {
-    }
-
     public String getFunctionName() {
         return functionName;
     }
