@@ -2,6 +2,7 @@ package com.zjb.ruleengine.core.function;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.zjb.ruleengine.core.Context;
+import com.zjb.ruleengine.core.value.AutoExecute;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -15,7 +16,7 @@ public class GetPropertyFunction extends Function<GetPropertyFunction.GetPropert
         return ReflectUtil.getFieldValue(param.object, param.fieldName);
     }
 
-    public static class GetPropertyFunctionParameter {
+    public static class GetPropertyFunctionParameter implements AutoExecute {
         /**
          * 对象
          */

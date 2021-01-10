@@ -29,6 +29,11 @@ public class MultipleResult extends Value {
     }
 
     @Override
+    public Class getResultType() {
+        return Map.class;
+    }
+
+    @Override
     public Collection<Element> collectParameter() {
         return multipleResult.values().stream().flatMap(value -> value.collectParameter().stream()).collect(Collectors.toSet());
     }

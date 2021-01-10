@@ -35,6 +35,11 @@ public class Element extends Value {
     }
 
     @Override
+    public Class getResultType() {
+        return dataType.getClazz();
+    }
+
+    @Override
     public Collection<Element> collectParameter() {
         return Sets.newHashSet(this);
     }

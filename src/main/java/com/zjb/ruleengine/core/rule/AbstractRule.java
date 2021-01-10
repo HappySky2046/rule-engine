@@ -105,7 +105,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
                 result = postProcessor.afterProcessorBeforeActionExecute(this, context, result);
             }
         }
-        log.debug("规则执行结果：{}", result);
+        log.debug("规则:{} 执行结果：{}", this.getId(),result);
         return result;
     }
 

@@ -2,6 +2,7 @@ package com.zjb.ruleengine.core.value;
 
 import cn.hutool.core.text.StrFormatter;
 import cn.hutool.core.util.ClassUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.config.FunctionHolder;
@@ -44,13 +45,26 @@ public class Variable extends Value {
         }
         final Function functionBean = functionHolder.getFunction(function.getFunctionName());
         final Class functionParamType = functionBean.getFunctionParamType();
-        if (!function.getParameter().getClass().isAssignableFrom(functionParamType)) {
+        //functionHolder.getFunction(((Variable) function.getParameter()).function.getFunctionName()).getFunctionResultType()
+        final Object parameter = function.getParameter();
+        if (parameter instanceof Value) {
+            if (!functionParamType.isAssignableFrom(((Value) parameter).getResultType())) {
+                final String message = StrFormatter.format("function:{} parameter {} not cast to {}", function.getFunctionName(), ((Value) parameter).getResultType(), functionParamType);
+                log.error(message);
+                throw new RuleEngineException(message);
+            }
+
+        } else if (!parameter.getClass().isAssignableFrom(functionParamType)) {
             final String message = StrFormatter.format("function:{} parameter {} not cast to {}", function.getFunctionName(), function.getParameter().getClass().getSimpleName(), functionParamType);
             log.error(message);
             throw new RuleEngineException(message);
         }
-
         this.function = function;
+    }
+
+    @Override
+    public Class getResultType() {
+        return functionHolder.getFunction(this.function.getFunctionName()).getFunctionResultType();
     }
 
     @Override
@@ -110,13 +124,32 @@ public class Variable extends Value {
 
     @Override
     public Object getValue(Context context) {
-        final Object parameter = function.getParameter();
-        if (!ClassUtil.isSimpleValueType(parameter.getClass())) {
-            final Field[] declaredFields = parameter.getClass().getDeclaredFields();
-            for (Field declaredField : declaredFields) {
-                System.out.println();
+        Object parameter = function.getParameter();
+        if (parameter instanceof Value) {
+            parameter = ((Value) parameter).getValue(context);
+        } else if (parameter instanceof AutoExecute) {
+            try {
+                final Field[] declaredFields = parameter.getClass().getDeclaredFields();
+                for (Field declaredField : declaredFields) {
+
+                    declaredField.setAccessible(true);
+                    final Object fieldValue = declaredField.get(parameter);
+                    if ((fieldValue instanceof AutoExecute) && declaredField.getType() != Object.class) {
+                        final String clazzName = parameter.getClass().getSimpleName();
+                        final String fieldName = declaredField.getName();
+                        log.warn("因为{}的成员变量{}，类型不是java.lang.Object,所以该变量不会自动执行,可以通过{}.get{}.getValue(context)获取该变量的值", clazzName, fieldName, clazzName, StrUtil.upperFirst(fieldName));
+                        continue;
+                    }
+                    if (fieldValue instanceof Value) {
+                        declaredField.set(parameter, ((Value) fieldValue).getValue(context));
+                    }
+                    declaredField.setAccessible(false);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
         }
+
 
         final Function function = functionHolder.getFunction(this.function.getFunctionName());
         return function.execute(context, parameter);
@@ -124,6 +157,7 @@ public class Variable extends Value {
 
     /**
      * 获取variable返回值的类型
+     *
      * @return
      */
     public Class getValueClass() {
