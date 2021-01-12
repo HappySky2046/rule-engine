@@ -50,65 +50,65 @@ public class DecisionRuleSetTest {
 
     private ArrayList<AbstractRule> getRules() {
         final ArrayList<AbstractCondition> conditionGroup1 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.eq, getResult("2")),
-                new DefaultCondition("conditionGroup1_condtion3", getInput3(), Symbol.eq, getResult("3"))
+                new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.number_eq, getResult("2")),
+                new DefaultCondition("conditionGroup1_condtion3", getInput3(), Symbol.number_eq, getResult("3"))
         );
         final Rule rule1 = new Rule("rule1", new ConditionGroup("conditionGroup1", conditionGroup1), getResult("result1"));
 
         final ArrayList<AbstractCondition> conditionGroup2 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup2_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup2_condtion2", getInput2(), Symbol.eq, getResult("2")),
-                new DefaultCondition("conditionGroup2_condtion3", getInput3(), Symbol.eq, getResult("3"))
+                new DefaultCondition("conditionGroup2_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup2_condtion2", getInput2(), Symbol.number_eq, getResult("2")),
+                new DefaultCondition("conditionGroup2_condtion3", getInput3(), Symbol.number_eq, getResult("3"))
         );
         final Rule rule2 = new Rule("rule2", new ConditionGroup("conditionGroup2", conditionGroup2), getResult("result2"));
 
         final ArrayList<AbstractCondition> conditionGroup3 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup3_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup3_condtion2", getInput2(), Symbol.eq, getResult("2")),
-                new DefaultCondition("conditionGroup3_condtion3", getInput3(), Symbol.eq, getResult("33"))
+                new DefaultCondition("conditionGroup3_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup3_condtion2", getInput2(), Symbol.number_eq, getResult("2")),
+                new DefaultCondition("conditionGroup3_condtion3", getInput3(), Symbol.number_eq, getResult("33"))
         );
         final Rule rule3 = new Rule("rule3", new ConditionGroup("conditionGroup3", conditionGroup3), getResult("result2"));
 
         final ArrayList<AbstractCondition> conditionGroup4 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup4_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup4_condtion2", getInput2(), Symbol.eq, getResult("2")),
-                new DefaultCondition("conditionGroup4_condtion3", getInput3(), Symbol.eq, getResult("33"))
+                new DefaultCondition("conditionGroup4_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup4_condtion2", getInput2(), Symbol.number_eq, getResult("2")),
+                new DefaultCondition("conditionGroup4_condtion3", getInput3(), Symbol.number_eq, getResult("33"))
         );
         final Rule rule4 = new Rule("rule4", new ConditionGroup("conditionGroup4", conditionGroup4), getResult("result2"));
 
         final ArrayList<AbstractCondition> conditionGroup5 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup5_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup5_condtion2", getInput2(), Symbol.eq, getResult("22")),
-                new DefaultCondition("conditionGroup5_condtion3", getInput3(), Symbol.eq, getResult("33"))
+                new DefaultCondition("conditionGroup5_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup5_condtion2", getInput2(), Symbol.number_eq, getResult("22")),
+                new DefaultCondition("conditionGroup5_condtion3", getInput3(), Symbol.number_eq, getResult("33"))
         );
         final Rule rule5 = new Rule("rule5", new ConditionGroup("conditionGroup5", conditionGroup5), getResult("result2"));
 
         final ArrayList<AbstractCondition> conditionGroup6 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup6_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup6_condtion2", getInput2(), Symbol.eq, getResult("22")),
-                new DefaultCondition("conditionGroup6_condtion3", getInput3(), Symbol.eq, getResult("33"))
+                new DefaultCondition("conditionGroup6_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup6_condtion2", getInput2(), Symbol.number_eq, getResult("22")),
+                new DefaultCondition("conditionGroup6_condtion3", getInput3(), Symbol.number_eq, getResult("33"))
         );
         final Rule rule6 = new Rule("rule6", new ConditionGroup("conditionGroup6", conditionGroup6), getResult("result3"));
 
         final ArrayList<AbstractCondition> conditionGroup7 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup7_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup7_condtion2", getInput2(), Symbol.eq, getResult("22")),
-                new DefaultCondition("conditionGroup7_condtion3", getInput3(), Symbol.eq, getResult("333"))
+                new DefaultCondition("conditionGroup7_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup7_condtion2", getInput2(), Symbol.number_eq, getResult("22")),
+                new DefaultCondition("conditionGroup7_condtion3", getInput3(), Symbol.number_eq, getResult("333"))
         );
         final Rule rule7 = new Rule("rule7", new ConditionGroup("conditionGroup7", conditionGroup7), getResult("result3"));
 
         final ArrayList<AbstractCondition> conditionGroup8 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup8_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup8_condtion2", getInput2(), Symbol.eq, getResult("222")),
-                new DefaultCondition("conditionGroup8_condtion3", getInput3(), Symbol.eq, getResult("333"))
+                new DefaultCondition("conditionGroup8_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup8_condtion2", getInput2(), Symbol.number_eq, getResult("222")),
+                new DefaultCondition("conditionGroup8_condtion3", getInput3(), Symbol.number_eq, getResult("333"))
         );
         final Rule rule8 = new Rule("rule8", new ConditionGroup("conditionGroup8", conditionGroup8), getResult("result5"));
 
         final ArrayList<AbstractCondition> conditionGroup9 = Lists.newArrayList(
-                new DefaultCondition("conditionGroup9_condtion1", getInput1(), Symbol.eq, getResult("1")),
-                new DefaultCondition("conditionGroup9_condtion2", getInput2(), Symbol.eq, getResult("222")),
-                new DefaultCondition("conditionGroup9_condtion3", getInput3(), Symbol.eq, getResult("333"))
+                new DefaultCondition("conditionGroup9_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
+                new DefaultCondition("conditionGroup9_condtion2", getInput2(), Symbol.number_eq, getResult("222")),
+                new DefaultCondition("conditionGroup9_condtion3", getInput3(), Symbol.number_eq, getResult("333"))
         );
         final Rule rule9 = new Rule("rule9", new ConditionGroup("conditionGroup9", conditionGroup9), getResult("result6"));
 

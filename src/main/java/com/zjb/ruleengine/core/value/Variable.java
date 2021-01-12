@@ -49,8 +49,8 @@ public class Variable extends Value {
         //functionHolder.getFunction(((Variable) function.getParameter()).function.getFunctionName()).getFunctionResultType()
         final Object parameter = function.getParameter();
         if (parameter instanceof Value) {
-            if (!functionParamType.isAssignableFrom(((Value) parameter).getResultType())) {
-                final String message = StrFormatter.format("function:{} parameter {} not cast to {}", function.getFunctionName(), ((Value) parameter).getResultType(), functionParamType);
+            if (!functionParamType.isAssignableFrom(((Value) parameter).getValueType())) {
+                final String message = StrFormatter.format("function:{} parameter {} not cast to {}", function.getFunctionName(), ((Value) parameter).getValueType(), functionParamType);
                 log.error(message);
                 throw new RuleEngineException(message);
             }
@@ -64,7 +64,7 @@ public class Variable extends Value {
     }
 
     @Override
-    public Class getResultType() {
+    public Class getValueType() {
         return functionHolder.getFunction(this.function.getFunctionName()).getFunctionResultType();
     }
 

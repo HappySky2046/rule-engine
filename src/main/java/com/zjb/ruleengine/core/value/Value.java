@@ -50,7 +50,7 @@ public abstract class Value implements Serializable, Weight, Collectors, AutoExe
      * value的类型
      * @return
      */
-    public abstract Class getResultType();
+    public abstract Class getValueType();
 
     @Override
     public String toString() {

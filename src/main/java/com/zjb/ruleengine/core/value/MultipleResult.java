@@ -29,7 +29,7 @@ public class MultipleResult extends Value {
     }
 
     @Override
-    public Class getResultType() {
+    public Class getValueType() {
         return Map.class;
     }
 

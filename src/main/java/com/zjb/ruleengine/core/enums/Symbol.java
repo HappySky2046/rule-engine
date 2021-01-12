@@ -12,13 +12,13 @@ import java.util.Map;
  * @date 2020-09-15 11:30:30
  */
 public enum Symbol implements Serializable {
-    eq(DataTypeEnum.NUMBER, "=", "等于"),
-    gt(DataTypeEnum.NUMBER, ">", "大于"),
-    ge(DataTypeEnum.NUMBER, ">=", "大于等于"),
-    lt(DataTypeEnum.NUMBER, "<", "小于"),
-    le(DataTypeEnum.NUMBER, "<=", "小于等于"),
-    ne(DataTypeEnum.NUMBER, "!=", "不等于"),
-    in(DataTypeEnum.NUMBER, "in", "在..之内"),
+    number_eq(DataTypeEnum.NUMBER, "=", "等于"),
+    number_gt(DataTypeEnum.NUMBER, ">", "大于"),
+    number_ge(DataTypeEnum.NUMBER, ">=", "大于等于"),
+    number_lt(DataTypeEnum.NUMBER, "<", "小于"),
+    number_le(DataTypeEnum.NUMBER, "<=", "小于等于"),
+    number_ne(DataTypeEnum.NUMBER, "!=", "不等于"),
+    number_in(DataTypeEnum.NUMBER, "in", "在..之内"),
     not_in(DataTypeEnum.NUMBER, "notIn", "不在..之内"),
 
     str_eq(DataTypeEnum.STRING, "=", "等于"),
@@ -32,11 +32,11 @@ public enum Symbol implements Serializable {
     str_in(DataTypeEnum.STRING, "in", "在..之内"),
     str_not_in(DataTypeEnum.STRING, "notIn", "不在..之内"),
 
-    list_contain(DataTypeEnum.COLLECTION, "contain", "包含"),
-    list_not_contain(DataTypeEnum.COLLECTION, "notContain", "不包含"),
+    collection_contain(DataTypeEnum.COLLECTION, "contain", "包含"),
+    collection_not_contain(DataTypeEnum.COLLECTION, "notContain", "不包含"),
     set_eq(DataTypeEnum.COLLECTION, "=", "相等"),
-    list_in(DataTypeEnum.COLLECTION, "in", "在..之内"),
-    list_not_in(DataTypeEnum.COLLECTION, "notIn", "不在..之内"),
+    collection_in(DataTypeEnum.COLLECTION, "in", "在..之内"),
+    collection_not_in(DataTypeEnum.COLLECTION, "notIn", "不在..之内"),
 
     boolean_in(DataTypeEnum.BOOLEAN, "in", "在..之内"),
     boolean_not_in(DataTypeEnum.BOOLEAN, "notIn", "不在..之内"),

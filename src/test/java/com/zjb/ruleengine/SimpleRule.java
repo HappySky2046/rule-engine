@@ -69,7 +69,7 @@ public class SimpleRule extends BaseTest {
         final Variable ageVariable = new Variable(new VariableFunction(GetPropertyFunction.class.getSimpleName(), new GetPropertyFunction.GetPropertyFunctionParameter(personVariable, "age")), ruleEngine.getFunctionHolder());
 
 
-        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.ge, new Element(DataTypeEnum.NUMBER, element_code));
+        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
 
         final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
 
@@ -113,7 +113,7 @@ public class SimpleRule extends BaseTest {
         final Variable ageVariable = new Variable(new VariableFunction(GetPropertyFunction.class.getSimpleName(), new GetPropertyFunction.GetPropertyFunctionParameter(parentVariable, "age")), ruleEngine.getFunctionHolder());
 
 
-        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.ge, new Element(DataTypeEnum.NUMBER, element_code));
+        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
 
         final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
 
@@ -130,7 +130,7 @@ public class SimpleRule extends BaseTest {
 
 
     public AbstractRule getRule() {
-        final DefaultCondition adult = new DefaultCondition("", new Element(DataTypeEnum.NUMBER, element_code), Symbol.ge, new Constant(DataTypeEnum.NUMBER, 18));
+        final DefaultCondition adult = new DefaultCondition("", new Element(DataTypeEnum.NUMBER, element_code), Symbol.number_ge, new Constant(DataTypeEnum.NUMBER, 18));
         return new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
     }
 

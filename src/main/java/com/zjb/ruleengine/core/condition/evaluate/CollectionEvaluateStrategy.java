@@ -37,24 +37,24 @@ public class CollectionEvaluateStrategy implements Evaluate {
         }
         Collection leftValueColl = (Collection) leftValue;
         switch (operatorType) {
-            case list_in:
+            case collection_in:
                 if (!(rightValue instanceof Collection)) {
                     throw new RuleEngineException("collection中in操作右值必须是collection");
                 }
                 return collectionContainCollection((Collection) leftValue, (Collection) rightValue);
-            case list_not_in:
+            case collection_not_in:
                 if (!(rightValue instanceof Collection)) {
                     throw new RuleEngineException("collection中notIn操作右值必须是collection");
                 }
                 return !collectionContainCollection((Collection) leftValue, (Collection) rightValue);
             case set_eq:
                 return setEq(rightValue, leftValueColl);
-            case list_contain:
+            case collection_contain:
                 if (rightValue instanceof Collection) {
                     return collectionContainCollection(rightValue, leftValueColl);
                 }
                 return listContain(rightValue, leftValueColl);
-            case list_not_contain:
+            case collection_not_contain:
                 if (!(leftValue instanceof Collection)) {
                     throw new RuleEngineException("左值必须是Collection");
                 }
@@ -147,10 +147,10 @@ public class CollectionEvaluateStrategy implements Evaluate {
     }
 
     public static void main(String[] args) {
-        System.out.println(strategy.evaluate(Arrays.asList(1, 2), Arrays.asList(1, 2, 3), Symbol.list_in));
-        System.out.println(strategy.evaluate(Arrays.asList(1, 2), Arrays.asList(1, 2, 3), Symbol.list_not_in));
-        System.out.println(strategy.evaluate(1, Arrays.asList(1, 2, 3), Symbol.list_not_in));
-        System.out.println(strategy.evaluate(4, Arrays.asList(1, 2, 3), Symbol.list_not_in));
+        System.out.println(strategy.evaluate(Arrays.asList(1, 2), Arrays.asList(1, 2, 3), Symbol.collection_in));
+        System.out.println(strategy.evaluate(Arrays.asList(1, 2), Arrays.asList(1, 2, 3), Symbol.collection_not_in));
+        System.out.println(strategy.evaluate(1, Arrays.asList(1, 2, 3), Symbol.collection_not_in));
+        System.out.println(strategy.evaluate(4, Arrays.asList(1, 2, 3), Symbol.collection_not_in));
     }
 
 }
