@@ -21,13 +21,13 @@ public class ConditionSet extends AbstractCondition {
     /**
      * 全局缓存，少存储condition
      */
-    private static Map<ConditionGroup, ConditionGroup> CONDITION_GROUP_CACHE = new ConcurrentHashMap<>();
+    private static Map<AbstractCondition, AbstractCondition> CONDITION_GROUP_CACHE = new ConcurrentHashMap<>();
     /**
      * 条件集由多个条件组组成
      * 条件全部为true则为true
      **/
 
-    private List<ConditionGroup> conditionGroups;
+    private List<AbstractCondition> conditionGroups;
 
     /**
      * 原型模式
@@ -35,7 +35,7 @@ public class ConditionSet extends AbstractCondition {
      * @param id
      * @param conditionGroups
      */
-    public ConditionSet(String id, List<ConditionGroup> conditionGroups) {
+    public ConditionSet(String id, List<? extends AbstractCondition> conditionGroups) {
         super(id);
         Validate.notEmpty(conditionGroups, "conditionGroups not empty");
         this.conditionGroups = conditionGroups.stream().map(con -> {
@@ -45,6 +45,13 @@ public class ConditionSet extends AbstractCondition {
             CONDITION_GROUP_CACHE.put(con, con);
             return con;
         }).collect(Collectors.toList());
+        for (AbstractCondition conditionGroup : conditionGroups) {
+            CONDITION_GROUP_CACHE.put(conditionGroup, conditionGroup);
+        }
+    }
+
+    public ConditionSet(List<? extends AbstractCondition> conditionGroups) {
+        this("", conditionGroups);
     }
 
     public void addConditionGroup(ConditionGroup conditionGroup) {
@@ -74,10 +81,10 @@ public class ConditionSet extends AbstractCondition {
      **/
     @Override
     public boolean evaluate(Context context) {
-        boolean result = true;
+        boolean result = false;
         for (AbstractCondition condition : conditionGroups) {
-            if (!condition.evaluate(context)) {
-                result = false;
+            if (condition.evaluate(context)) {
+                result = true;
                 break;
             }
         }
@@ -88,16 +95,16 @@ public class ConditionSet extends AbstractCondition {
 
     @Override
     public AbstractCondition build() {
-        List<ConditionGroup> collect = conditionGroups.stream().sorted(Comparator.comparing(ConditionGroup::getWeight)).collect(Collectors.toList());
+        List<AbstractCondition> collect = conditionGroups.stream().sorted(Comparator.comparing(AbstractCondition::getWeight)).collect(Collectors.toList());
         return new ConditionSet(getId(), collect);
     }
 
     @Override
     public int getWeight() {
-        return conditionGroups.stream().mapToInt(ConditionGroup::getWeight).sum();
+        return conditionGroups.stream().mapToInt(AbstractCondition::getWeight).sum();
     }
 
-    public List<ConditionGroup> getConditionGroups() {
+    public List<? extends AbstractCondition> getConditionGroups() {
         return Collections.unmodifiableList(conditionGroups);
     }
 }

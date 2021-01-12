@@ -45,6 +45,14 @@ public class ConditionGroup extends AbstractCondition {
     }
 
     /**
+     * 原型模式
+     * @param conditions
+     */
+    public ConditionGroup(List<AbstractCondition> conditions) {
+        this("", conditions);
+    }
+
+    /**
      * 增加条件
      *
      * @param condition

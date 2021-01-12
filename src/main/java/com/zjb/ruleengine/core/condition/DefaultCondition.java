@@ -48,6 +48,10 @@ public class DefaultCondition extends AbstractCondition {
         this.symbol = symbol;
     }
 
+    public DefaultCondition(Value leftValue, Symbol symbol, Value rightValue) {
+        this("",leftValue, symbol, rightValue);
+    }
+
     @Override
     public Collection<Element> collectParameter() {
         final HashSet<Element> result = Sets.newHashSet();
