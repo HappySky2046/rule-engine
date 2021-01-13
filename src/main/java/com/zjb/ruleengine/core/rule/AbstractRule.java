@@ -11,6 +11,7 @@ import com.zjb.ruleengine.core.Weight;
 import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.value.Element;
 import com.zjb.ruleengine.core.value.Value;
+import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,15 +51,14 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
 
 
     public AbstractRule(String id, AbstractCondition condition, Value action) {
+        Validate.notBlank(id, "id不能为空");
         this.id = id;
         this.condition = condition;
         this.action = action;
         this.build();
     }
 
-    public AbstractRule(AbstractCondition condition, Value action) {
-        this("", condition, action);
-    }
+
 
 
     @Override
@@ -117,7 +117,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         return result;
     }
 
-    public abstract Boolean executeCondition(Context context);
+    protected abstract Boolean executeCondition(Context context);
 
     public AbstractCondition getCondition() {
         return condition;
@@ -145,6 +145,8 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     /**
      * 编译规则
      */
-    public abstract void build();
+    protected  void build(){
+
+    };
 
 }

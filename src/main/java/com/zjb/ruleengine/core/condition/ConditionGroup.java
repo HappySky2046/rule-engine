@@ -32,7 +32,7 @@ public class ConditionGroup extends AbstractCondition {
      * @param id
      * @param conditions
      */
-    public ConditionGroup(String id, List<AbstractCondition> conditions) {
+    public ConditionGroup(String id, List<? extends AbstractCondition> conditions) {
         super(id);
         Validate.notEmpty(conditions, "conditions not empty");
         this.conditions = conditions.stream().map(con -> {
@@ -48,7 +48,7 @@ public class ConditionGroup extends AbstractCondition {
      * 原型模式
      * @param conditions
      */
-    public ConditionGroup(List<AbstractCondition> conditions) {
+    public ConditionGroup(List<? extends AbstractCondition> conditions) {
         this("", conditions);
     }
 

@@ -23,8 +23,9 @@ public class Rule extends AbstractRule implements Serializable {
         super(id,condition,action);
     }
 
+
     @Override
-    public Boolean executeCondition(Context context) {
+    protected Boolean executeCondition(Context context) {
         return condition.evaluate(context);
     }
 

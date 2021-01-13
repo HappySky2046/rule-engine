@@ -33,7 +33,7 @@ public class Constant extends Value {
         super();
         Validate.notNull(dataType);
         Validate.notNull(value);
-        Validate.isAssignableFrom(dataType.getClazz(), value.getClass(),"value not cast to " + dataType.getClazz());
+        Validate.isAssignableFrom(dataType.getClazz(), value.getClass(),value.getClass()+" not cast to " + dataType.getClazz());
         this.value = value;
         this.dataType = dataType;
     }
