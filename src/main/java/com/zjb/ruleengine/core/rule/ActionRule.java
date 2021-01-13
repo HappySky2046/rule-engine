@@ -8,13 +8,13 @@ import com.zjb.ruleengine.core.value.Value;
  * Created on 2021-01-02
  * 没有条件的规则，规则永远执行action并返回结果
  */
-public class DefaultRule extends AbstractRule {
+public class ActionRule extends AbstractRule {
     @Override
     public Boolean executeCondition(Context context) {
         return true;
     }
 
-    public DefaultRule(String id,  Value action) {
+    public ActionRule(String id, Value action) {
         super(id, null, action);
     }
 

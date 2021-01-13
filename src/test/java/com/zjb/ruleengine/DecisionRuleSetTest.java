@@ -9,7 +9,6 @@ import com.zjb.ruleengine.core.enums.Symbol;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.DecisionRuleSet;
 import com.zjb.ruleengine.core.rule.Rule;
-import com.zjb.ruleengine.core.rule.RuleSet;
 import com.zjb.ruleengine.core.value.Constant;
 import com.zjb.ruleengine.core.value.Element;
 import com.zjb.ruleengine.core.value.Value;
@@ -26,11 +25,9 @@ public class DecisionRuleSetTest {
 
     @Test
     public void testBuild() {
-        final RuleSet.Builder builder = new RuleSet.Builder();
-
         final ArrayList<AbstractRule> rules = getRules();
-        builder.rules(rules);
-        DecisionRuleSet ruleSet = new DecisionRuleSet(builder);
+
+        DecisionRuleSet ruleSet = new DecisionRuleSet(rules);
         ruleSet.build();
         System.out.println();
     }

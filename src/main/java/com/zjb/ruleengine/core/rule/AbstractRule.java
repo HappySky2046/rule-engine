@@ -56,6 +56,11 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         this.build();
     }
 
+    public AbstractRule(AbstractCondition condition, Value action) {
+        this("", condition, action);
+    }
+
+
     @Override
     public Collection<Element> collectParameter() {
         final HashSet<Element> parameterNames = Sets.newHashSet();
@@ -66,6 +71,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
 
     /**
      * 增加后置处理器
+     *
      * @param postProcessor
      */
     public void addPostProcessor(PostProcessor postProcessor) {
@@ -77,6 +83,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
 
     /**
      * 增加前置处理器
+     *
      * @param preProcessor
      */
     public void addPreProcessor(PreProcessor preProcessor) {
@@ -85,6 +92,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         }
         preProcessors.add(preProcessor);
     }
+
     @Override
     public Object execute(Context context) {
         log.debug("开始执行规则：{}", id);
@@ -97,7 +105,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
 
         if (conditionResult) {
             result = action.getValue(context);
-        }else{
+        } else {
             result = RuleResultEnum.NULL;
         }
         if (Objects.nonNull(postProcessors)) {
@@ -105,7 +113,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
                 result = postProcessor.afterProcessorBeforeActionExecute(this, context, result);
             }
         }
-        log.debug("规则:{} 执行结果：{}", this.getId(),result);
+        log.debug("规则:{} 执行结果：{}", this.getId(), result);
         return result;
     }
 

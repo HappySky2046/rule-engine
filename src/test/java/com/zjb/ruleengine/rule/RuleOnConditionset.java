@@ -77,10 +77,11 @@ public class RuleOnConditionset extends BaseTest {
 
 
     public AbstractRule getRule() {
+        //（年龄>=18 && country=中国）
         final DefaultCondition adult = new DefaultCondition(new Element(DataTypeEnum.NUMBER, element_code), Symbol.number_ge, new Constant(DataTypeEnum.NUMBER, 18));
         final DefaultCondition adult1 = new DefaultCondition(new Element(DataTypeEnum.STRING, element_code_country), Symbol.str_eq, new Constant(DataTypeEnum.STRING, "中国"));
         ConditionGroup conditionGroup1 = new ConditionGroup(Arrays.asList(adult, adult1));
-
+//（年龄>=20 && country=日本 && sex=男）
         final DefaultCondition ageCondition = new DefaultCondition(new Element(DataTypeEnum.NUMBER, element_code), Symbol.number_ge, new Constant(DataTypeEnum.NUMBER, 20));
         final DefaultCondition countryCondition = new DefaultCondition(new Element(DataTypeEnum.STRING, element_code_country), Symbol.str_eq, new Constant(DataTypeEnum.STRING, "日本"));
         final DefaultCondition sexCondition = new DefaultCondition(new Element(DataTypeEnum.STRING, "sex"), Symbol.str_eq, new Constant(DataTypeEnum.STRING, "男"));
