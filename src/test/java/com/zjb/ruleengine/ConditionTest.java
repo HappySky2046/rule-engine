@@ -26,9 +26,9 @@ public class ConditionTest {
         final DefaultCondition condtion1 = new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.number_eq, getResult("1"));
         final DefaultCondition condtion2 = new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.number_eq, getResult("2"));
         final DefaultCondition condtion3 = new DefaultCondition("conditionGroup1_condtion3", getInput3(), Symbol.number_eq, getResult("3"));
-        ConditionGroup conditionGroup1=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));
-        ConditionGroup conditionGroup2=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));
-        ConditionGroup conditionGroup3=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));
+        ConditionGroup conditionGroup1 = new ConditionGroup("", Lists.newArrayList(condtion1, condtion2, condtion3));
+        ConditionGroup conditionGroup2 = new ConditionGroup("", Lists.newArrayList(condtion1, condtion2, condtion3));
+        ConditionGroup conditionGroup3 = new ConditionGroup("", Lists.newArrayList(condtion1, condtion2, condtion3));
 
         final ConditionSet conditionSet = new ConditionSet("", Arrays.asList(conditionGroup1, conditionGroup2, conditionGroup3));
 
@@ -40,12 +40,15 @@ public class ConditionTest {
     private Element getInput1() {
         return new Element(DataTypeEnum.NUMBER, "input1");
     }
+
     private Element getInput2() {
         return new Element(DataTypeEnum.NUMBER, "input2");
     }
+
     private Element getInput3() {
         return new Element(DataTypeEnum.NUMBER, "input3");
     }
+
     private Value getResult(String result) {
         return new Constant(DataTypeEnum.STRING, result);
     }

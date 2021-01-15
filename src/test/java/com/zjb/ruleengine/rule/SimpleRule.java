@@ -49,11 +49,10 @@ public class SimpleRule extends BaseTest {
      * 规则测试类（带http函数的规则）
      * 规则：如果 年龄>=法定年龄 就是成年人
      * 条件（张三的年龄>=法定年龄）：
-     *      左值为 张三的age：
-     *          1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
-     *          2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从张三的个人信息中获取张三的年龄
-     *      右值法定年龄，age为元素{@link Element}，即入参，
-     *
+     * 左值为 张三的age：
+     * 1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
+     * 2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从张三的个人信息中获取张三的年龄
+     * 右值法定年龄，age为元素{@link Element}，即入参，
      */
     @Test
     public void isAdult1() throws Exception {
@@ -88,12 +87,11 @@ public class SimpleRule extends BaseTest {
      * 规则测试类（多重函数的规则）
      * 规则：如果 年龄>=法定年龄 就是成年人
      * 条件（李四的年龄>=法定年龄）：
-     *      左值为 张三的age：
-     *          1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
-     *          2：通过函数 {@link ParentFunction} 获取张三的父亲李四的个人信息
-     *          2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从李四个人信息中获取李四的年龄
-     *      右值法定年龄，age为元素{@link Element}，即入参，
-     *
+     * 左值为 张三的age：
+     * 1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
+     * 2：通过函数 {@link ParentFunction} 获取张三的父亲李四的个人信息
+     * 2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从李四个人信息中获取李四的年龄
+     * 右值法定年龄，age为元素{@link Element}，即入参，
      */
     @Test
     public void isAdult2() throws Exception {
@@ -129,7 +127,6 @@ public class SimpleRule extends BaseTest {
     }
 
 
-
     public AbstractRule getRule() {
         final DefaultCondition adult = new DefaultCondition("", new Element(DataTypeEnum.NUMBER, element_code), Symbol.number_ge, new Constant(DataTypeEnum.NUMBER, 18));
         return new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
@@ -157,10 +154,9 @@ public class SimpleRule extends BaseTest {
         public Person execute(Context context, Person param) {
             //业务逻辑。。。
 
-            return new Person(11,"李四","中国");
+            return new Person(11, "李四", "中国");
         }
     }
-
 
 
     public static class Person {

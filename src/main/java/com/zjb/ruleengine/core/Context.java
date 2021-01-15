@@ -15,6 +15,7 @@ public interface Context extends Serializable {
     //enum ReserveWord{
     //    RESERVE_WORD_APPID,RESERVE_WORD_SIGN,RESERVE_WORD_BIZPARAMS,RESERVE_WORD_TIMESTAMP;
     //}
+
     /**
      * 添加参数信息到上下文中
      *

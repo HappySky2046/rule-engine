@@ -86,5 +86,4 @@ public class NumberEvaluateStrategy implements Evaluate {
     }
 
 
-
 }

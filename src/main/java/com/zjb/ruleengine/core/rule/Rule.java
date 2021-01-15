@@ -20,7 +20,7 @@ public class Rule extends AbstractRule implements Serializable {
     private AbstractCondition condition;
 
     public Rule(String id, AbstractCondition condition, Value action) {
-        super(id,condition,action);
+        super(id, condition, action);
     }
 
 

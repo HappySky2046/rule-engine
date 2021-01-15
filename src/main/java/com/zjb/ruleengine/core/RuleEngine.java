@@ -16,19 +16,20 @@ public interface RuleEngine extends Serializable {
      * @Param context - 已装载的上下文
      * @Param ruleSetCode - 需要执行的规则编码
      **/
-    Object execute(String ruleId,Context context);
+    Object execute(String ruleId, Context context);
 
     /**
+     * @return void
      * @Author zjb
      * @Description 加入一个规则
      * @Date 15:52 2019-06-18
      * @Param [ruleSet]
-     * @return void
      **/
     void addRule(AbstractRule rule);
 
     /**
      * 根据ruleSetCode 删除 RuleSet
+     *
      * @param ruleId
      * @return
      */

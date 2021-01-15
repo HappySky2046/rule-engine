@@ -16,7 +16,7 @@ public class HttpFunctionTest {
     }
 
 
-   public static class DemoHttpFunticonTest extends HttpFunction<String, String> {
+    public static class DemoHttpFunticonTest extends HttpFunction<String, String> {
 
         @Override
         protected String getUrl() {

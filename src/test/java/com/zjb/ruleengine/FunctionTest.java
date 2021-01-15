@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class FunctionTest extends BaseTest {
 
-    private String propertyTest="123";
+    private String propertyTest = "123";
 
     @Test
     public void testGetPropertyFunction() throws Exception {
@@ -26,7 +26,7 @@ public class FunctionTest extends BaseTest {
 
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
     }
 }

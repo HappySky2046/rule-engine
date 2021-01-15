@@ -48,6 +48,7 @@ public abstract class Value implements Serializable, Weight, Collectors, AutoExe
 
     /**
      * value的类型
+     *
      * @return
      */
     public abstract Class getValueType();

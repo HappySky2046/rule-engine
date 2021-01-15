@@ -30,6 +30,7 @@ public abstract class AbstractCondition implements Serializable, Weight, Collect
 
     /**
      * build ,可以优化condition的执行顺序
+     *
      * @return
      */
     public AbstractCondition build() {

@@ -76,6 +76,6 @@ public class MultipleResult extends Value {
 
     @Override
     public String toString() {
-        return multipleResult.entrySet().stream().map(entry->entry.getKey()+"="+entry.getValue()).collect(Collectors.joining());
+        return multipleResult.entrySet().stream().map(entry -> entry.getKey() + "=" + entry.getValue()).collect(Collectors.joining());
     }
 }

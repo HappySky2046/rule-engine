@@ -82,8 +82,8 @@ public class CollectionEvaluateStrategy implements Evaluate {
         if (CollUtil.isEmpty(leftValueColl) || CollUtil.isEmpty(rightValueColl)) {
             return false;
         }
-        Set rightSet = (Set)rightValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
-        Set leftSet = (Set)leftValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
+        Set rightSet = (Set) rightValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
+        Set leftSet = (Set) leftValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
         int leftSize = leftSet.size();
         leftSet.addAll(rightSet);
         if (leftSet.size() == leftSize) {
@@ -103,8 +103,8 @@ public class CollectionEvaluateStrategy implements Evaluate {
         }
         Collection rightValueColl = (Collection) rightValue;
 
-        Set rightValueSet = (Set)rightValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
-        Set leftValueSet = (Set)leftValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
+        Set rightValueSet = (Set) rightValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
+        Set leftValueSet = (Set) leftValueColl.stream().map(val -> val + "").collect(Collectors.toSet());
 
         if (leftValueSet.size() != rightValueSet.size()) {
             return false;

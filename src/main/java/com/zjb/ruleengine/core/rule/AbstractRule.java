@@ -59,8 +59,6 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     }
 
 
-
-
     @Override
     public Collection<Element> collectParameter() {
         final HashSet<Element> parameterNames = Sets.newHashSet();
@@ -145,8 +143,10 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     /**
      * 编译规则
      */
-    protected  void build(){
+    protected void build() {
 
-    };
+    }
+
+    ;
 
 }

@@ -21,8 +21,7 @@ public enum RuleSetExecutePolicyEnum implements Serializable {
     /**
      * 获取所有 触发成功的规则结果
      */
-    ALL
-    ;
+    ALL;
     private static Map<String, RuleSetExecutePolicyEnum> map = new HashMap<>();
 
     static {

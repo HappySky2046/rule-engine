@@ -29,6 +29,7 @@ public class ConditionGroup extends AbstractCondition {
 
     /**
      * 原型模式
+     *
      * @param id
      * @param conditions
      */
@@ -46,6 +47,7 @@ public class ConditionGroup extends AbstractCondition {
 
     /**
      * 原型模式
+     *
      * @param conditions
      */
     public ConditionGroup(List<? extends AbstractCondition> conditions) {
@@ -63,7 +65,7 @@ public class ConditionGroup extends AbstractCondition {
         }
         if (CONDITION_CACHE.containsKey(condition)) {
             conditions.add(CONDITION_CACHE.get(condition));
-        }else{
+        } else {
             CONDITION_CACHE.put(condition, condition);
             conditions.add(condition);
         }
