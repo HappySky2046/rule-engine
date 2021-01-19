@@ -1,14 +1,14 @@
 package com.zjb.ruleengine;
 
 import com.zjb.ruleengine.core.BaseContextImpl;
-import com.zjb.ruleengine.core.function.HttpFunction;
+import com.zjb.ruleengine.core.function.HttpObjectFunction;
 import org.junit.Test;
 
 /**
  * @author 赵静波
  * @date 2020-12-20 18:33:04
  */
-public class HttpFunctionTest {
+public class HttpObjectFunctionTest {
     @Test
     public void test() {
         final String execute = new DemoHttpFunticonTest().execute(new BaseContextImpl(), "123");
@@ -16,7 +16,7 @@ public class HttpFunctionTest {
     }
 
 
-    public static class DemoHttpFunticonTest extends HttpFunction<String, String> {
+    public static class DemoHttpFunticonTest extends HttpObjectFunction<String, String> {
 
         @Override
         protected String getUrl() {

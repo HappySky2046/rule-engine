@@ -6,6 +6,7 @@ import com.zjb.ruleengine.core.function.Function;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
@@ -79,5 +80,9 @@ public class FunctionHolder {
     //    return new FunctionBean(executeParamType, executeResultType, function);
     //}
 
+
+    public Map<String, Function> getFunctions() {
+        return Collections.unmodifiableMap(functions);
+    }
 
 }

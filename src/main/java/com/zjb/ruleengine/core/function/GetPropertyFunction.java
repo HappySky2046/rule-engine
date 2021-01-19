@@ -1,9 +1,11 @@
 package com.zjb.ruleengine.core.function;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.zjb.ruleengine.core.Context;
-import com.zjb.ruleengine.core.value.AutoExecute;
 import org.apache.commons.lang3.Validate;
+
+import java.util.Map;
 
 /**
  * @author 赵静波
@@ -12,11 +14,17 @@ import org.apache.commons.lang3.Validate;
 public class GetPropertyFunction extends Function<GetPropertyFunction.GetPropertyFunctionParameter, Object> {
     @Override
     public Object execute(Context context, GetPropertyFunctionParameter param) {
-
+        final Object object = param.object;
+        if (object instanceof JsonNode) {
+            return ((JsonNode) object).findValue(param.fieldName);
+        }
+        if (object instanceof Map) {
+            return ((Map) object).get(param.fieldName);
+        }
         return ReflectUtil.getFieldValue(param.object, param.fieldName);
     }
 
-    public static class GetPropertyFunctionParameter implements AutoExecute {
+    public static class GetPropertyFunctionParameter {
         /**
          * 对象
          */

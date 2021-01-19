@@ -1,6 +1,8 @@
 
 package com.zjb.ruleengine.core.enums;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import java.util.Map;
  * @date 2020-09-15 11:30:29
  */
 public enum DataTypeEnum implements Serializable {
-    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), OBJECT(Object.class),
+    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), OBJECT(Object.class),JSONOBJECT(JsonNode.class)
     ;
 
     //private static Map<String, DataTypeEnum> dataTypeMap = new HashMap<>();
