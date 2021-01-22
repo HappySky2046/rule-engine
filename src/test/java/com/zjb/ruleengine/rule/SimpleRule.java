@@ -1,24 +1,27 @@
 package com.zjb.ruleengine.rule;
 
+import com.google.common.collect.Maps;
 import com.zjb.ruleengine.BaseTest;
 import com.zjb.ruleengine.core.BaseContextImpl;
 import com.zjb.ruleengine.core.DefaultRuleEngine;
 import com.zjb.ruleengine.core.condition.DefaultCondition;
+import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
-import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
 import com.zjb.ruleengine.core.function.Function;
+import com.zjb.ruleengine.core.function.GetObjectPropertyFunction;
 import com.zjb.ruleengine.core.function.HttpObjectFunction;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.Rule;
-import com.zjb.ruleengine.core.value.Constant;
-import com.zjb.ruleengine.core.value.Element;
-import com.zjb.ruleengine.core.value.Variable;
-import com.zjb.ruleengine.core.value.VariableFunction;
+import com.zjb.ruleengine.core.value.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 赵静波
@@ -52,36 +55,46 @@ public class SimpleRule extends BaseTest {
      * 条件（张三的年龄>=法定年龄）：
      * 左值为 张三的age：
      * 1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
-     * 2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从张三的个人信息中获取张三的年龄
+     * 2：通过 function {@link GetObjectPropertyFunction.FunctionParameter}从张三的个人信息中获取张三的年龄
      * 右值法定年龄，age为元素{@link Element}，即入参，
      */
-    //@Test
-    //public void isAdult1() throws Exception {
-    //    DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
-    //    //如果想调用某个函数，需要先把函数注册进规则引擎
-    //    registerFunction(ruleEngine);
-    //    /**
-    //     * functionName默认为类名
-    //     * 获取张三的信息
-    //     * {@link PersonHttpFunction}
-    //     */
-    //    final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", ""), ruleEngine.getFunctionHolder());
-    //    //获取张三的age
-    //    final Variable ageVariable = new Variable(new VariableFunction(GetPropertyFunction.class.getSimpleName(), new GetPropertyFunction.GetPropertyFunctionParameter(personVariable, "age")), ruleEngine.getFunctionHolder());
-    //
-    //
-    //    final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
-    //
-    //    final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
-    //
-    //    ruleEngine.addRule(rule);
-    //    final BaseContextImpl context = new BaseContextImpl();
-    //    //法定年龄18
-    //    context.put(element_code, 18);
-    //    final Object result = ruleEngine.execute(rule_id, context);
-    //    System.out.println(result);
-    //    Assert.assertTrue((Boolean) result);
-    //}
+    @Test
+    public void isAdult1() throws Exception {
+        DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
+        //如果想调用某个函数，需要先把函数注册进规则引擎
+        registerFunction(ruleEngine);
+        final FunctionHolder functionHolder = ruleEngine.getFunctionHolder();
+
+        /**
+         * functionName默认为类名
+         * 获取张三的信息
+         * {@link PersonHttpFunction}
+         */
+        final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
+        //获取张三的age
+        final String functionName = GetObjectPropertyFunction.class.getSimpleName();
+        //获取GetObjectPropertyFunction的参数
+        final List<Function.Parameter> paramters = functionHolder.getFunction(functionName).getParamters();
+        System.out.println(paramters);
+        Map<String, Value> ageVariableArgs = new HashMap<>();
+        ageVariableArgs.put("object", personVariable);
+        ageVariableArgs.put("fieldName", new Constant(DataTypeEnum.STRING, "age"));
+
+        final Variable ageVariable = new Variable(new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), ageVariableArgs, functionHolder));
+
+
+        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
+
+        final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
+
+        ruleEngine.addRule(rule);
+        final BaseContextImpl context = new BaseContextImpl();
+        //法定年龄18
+        context.put(element_code, 18);
+        final Object result = ruleEngine.execute(rule_id, context);
+        System.out.println(result);
+        Assert.assertTrue((Boolean) result);
+    }
     //
     //
     ///**
@@ -142,6 +155,8 @@ public class SimpleRule extends BaseTest {
      * }
      */
     public static class PersonHttpFunction extends HttpObjectFunction<String, Person> {
+
+
         @Override
         protected String getUrl() {
             return "http://rap2api.taobao.org/app/mock/273721/example/1608461246900";

@@ -28,7 +28,7 @@ public class MultipleResult extends Value {
 
     @Override
     public DataTypeEnum getDataType() {
-        return DataTypeEnum.OBJECT;
+        return DataTypeEnum.POJO;
     }
 
     @Override

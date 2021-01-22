@@ -26,7 +26,7 @@ import com.zjb.ruleengine.core.function.GetObjectPropertyFunction;
  *
  * @author 赵静波
  * Created on 2021-01-10
- * @see {@link GetObjectPropertyFunction.GetPropertyFunctionParameter}
+ * @see {@link GetObjectPropertyFunction.FunctionParameter}
  */
 public interface AutoExecute {
 }
