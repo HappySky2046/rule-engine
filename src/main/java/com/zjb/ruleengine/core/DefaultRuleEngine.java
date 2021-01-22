@@ -27,10 +27,15 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
     private FunctionHolder functionHolder = new FunctionHolder();
 
     public DefaultRuleEngine() {
+        //final Set<Class<?>> classes = ClassUtil.scanPackage(DefaultRuleEngine.class.getPackage().getName(), clazz -> Function.class.isAssignableFrom(clazz) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()));
         final Set<Class<?>> classes = ClassUtil.scanPackage("com.zjb.ruleengine", clazz -> Function.class.isAssignableFrom(clazz) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()));
         try {
-            for (Class<?> aClass : classes) {
-                this.registerFunction((Function) aClass.newInstance());
+            for (Class<?> funClass : classes) {
+                if (! ClassUtil.isPublic(funClass)){
+                    log.warn("function ：{} 不是public的,不能被注册", funClass.getName());
+                }else{
+                    this.registerFunction((Function) funClass.newInstance());
+                }
             }
         } catch (InstantiationException e) {
             e.printStackTrace();

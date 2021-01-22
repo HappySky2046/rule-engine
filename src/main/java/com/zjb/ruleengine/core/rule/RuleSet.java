@@ -47,7 +47,8 @@ public class RuleSet extends AbstractRule {
 
     @Override
     public Collection<Element> collectParameter() {
-        return rules.stream().flatMap(rule -> rule.collectParameter().stream()).collect(Collectors.toList());
+        final Set<Element> collect = rules.stream().flatMap(rule -> rule.collectParameter().stream()).collect(Collectors.toSet());
+        return Collections.unmodifiableSet(collect);
     }
 
     @Override

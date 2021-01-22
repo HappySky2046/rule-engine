@@ -69,7 +69,8 @@ public class ConditionSet extends AbstractCondition {
 
     @Override
     public Collection<Element> collectParameter() {
-        return conditionGroups.stream().flatMap(con -> con.collectParameter().stream()).collect(Collectors.toSet());
+        final Set<Element> collect = conditionGroups.stream().flatMap(con -> con.collectParameter().stream()).collect(Collectors.toSet());
+        return Collections.unmodifiableSet(collect);
     }
 
     /**

@@ -6,6 +6,7 @@ import com.zjb.ruleengine.core.value.Element;
 import com.zjb.ruleengine.core.value.Value;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author 赵静波
@@ -30,6 +31,6 @@ public class ActionRule extends AbstractRule {
 
     @Override
     public Collection<Element> collectParameter() {
-        return Lists.newArrayList();
+        return Collections.EMPTY_LIST;
     }
 }

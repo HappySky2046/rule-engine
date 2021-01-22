@@ -64,7 +64,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         final HashSet<Element> parameterNames = Sets.newHashSet();
         parameterNames.addAll(condition.collectParameter());
         parameterNames.addAll(action.collectParameter());
-        return parameterNames;
+        return Collections.unmodifiableCollection(parameterNames);
     }
 
     /**

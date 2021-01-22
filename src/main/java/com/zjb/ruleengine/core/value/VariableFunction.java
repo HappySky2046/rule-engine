@@ -1,44 +1,92 @@
 package com.zjb.ruleengine.core.value;
 
+import cn.hutool.core.text.StrFormatter;
+import com.zjb.ruleengine.core.config.FunctionHolder;
+import com.zjb.ruleengine.core.enums.DataTypeEnum;
+import com.zjb.ruleengine.core.exception.RuleValidationException;
+import com.zjb.ruleengine.core.function.Function;
 import org.apache.commons.lang3.Validate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
  * @author 赵静波
  * @date 2020-12-01 14:26:36
  */
-public class VariableFunction<T> {
 
+public class VariableFunction {
+    private static final Logger log = LogManager.getLogger();
     private String functionName;
     /**
      * parameters of function
      * key=参数的key
      */
-    private T parameter;
+    private Map<String, ? extends Value> parameter;
 
-    public VariableFunction(String functionName, T parameter) {
+    private FunctionHolder functionHolder;
+    private Method method;
+    private Parameter[] methodParameters;
+
+    public VariableFunction(String functionName, Map<String, ? extends Value> parameter, FunctionHolder functionHolder) {
 
         Validate.notBlank(functionName, "functionName is not blank");
         Validate.notNull(parameter, "parameter is not null");
+        Validate.notNull(functionHolder, "functionHolder is not null");
+        if (!functionHolder.containFunction(functionName)) {
+            final String message = StrFormatter.format("not found function:{}", functionName);
+            log.error(message);
+            throw new RuleValidationException(message);
+        }
+        final Function function = functionHolder.getFunction(functionName);
+        final List<Function.Parameter> parameters = function.getParamters();
+        for (Function.Parameter funArg : parameters) {
+            if (!parameter.containsKey(funArg.getName())) {
+                log.warn("没有{}参数", funArg.getName());
+                continue;
+            }
+            final DataTypeEnum dataType = parameter.get(funArg.getName()).getDataType();
+
+            if (dataType != funArg.getDataTypeEnum()) {
+                throw new RuleValidationException("参数类型不匹配");
+            }
+        }
+
         this.functionName = functionName;
         this.parameter = parameter;
+        this.functionHolder = functionHolder;
+        try {
+            this.method = function.getClass().getMethod(function.getExecuteMethodName(), function.getParameterClass());
+        } catch (NoSuchMethodException e) {
+            throw new RuleValidationException(e);
+        }
+        this.methodParameters = this.method.getParameters();
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public Parameter[] getMethodParameters() {
+        return methodParameters;
     }
 
     public String getFunctionName() {
         return functionName;
     }
 
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
-    }
 
-    public T getParameter() {
+    public Map<String, ? extends Value> getParameter() {
         return parameter;
     }
 
-    public void setParameter(T parameter) {
-        this.parameter = parameter;
+    public FunctionHolder getFunctionHolder() {
+        return functionHolder;
     }
 
     @Override

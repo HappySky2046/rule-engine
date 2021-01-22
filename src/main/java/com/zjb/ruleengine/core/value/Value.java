@@ -1,15 +1,18 @@
 
 package com.zjb.ruleengine.core.value;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zjb.ruleengine.core.Collectors;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.Weight;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
+import com.zjb.ruleengine.core.exception.RuleExecuteException;
 import com.zjb.ruleengine.core.exception.RuleValidationException;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,6 +28,7 @@ import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy
 
 public abstract class Value implements Serializable, Weight, Collectors {
     private static final Logger log = LogManager.getLogger();
+    protected static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final long serialVersionUID = 8892490391433239102L;
     private String id;
 
@@ -51,7 +55,7 @@ public abstract class Value implements Serializable, Weight, Collectors {
      *
      * @return
      */
-    public abstract Class getValueType();
+    public abstract DataTypeEnum getDataType();
 
     @Override
     public String toString() {
@@ -59,40 +63,20 @@ public abstract class Value implements Serializable, Weight, Collectors {
     }
 
     public Object dataConversion(Object value, DataTypeEnum dataType) {
-        if (Objects.isNull(value)) {
+        if (Objects.isNull(value) || dataType == null) {
             return null;
         }
-        switch (dataType) {
-            case COLLECTION:
-                if (value instanceof Collection) {
-                    return value;
-                }
-                return Arrays.asList((value + "").split(","));
-            case NUMBER:
-                if (value instanceof Number) {
-                    return value;
-                }
-                return NumberUtils.createNumber(value + "");
-            case STRING:
-                if (value instanceof String) {
-                    return value;
-                }
-                return String.valueOf(value);
-            case BOOLEAN:
-                if (value instanceof Boolean) {
-                    return value;
-                }
-                if (Objects.equals(value, TRUE_STRING)) {
-                    return true;
-                }
-                if (Objects.equals(value, FALSE_STRING)) {
-                    return false;
-                }
-                throw new RuleValidationException("只能是boolean类型");
-            default:
-                return value;
+        final Class clazz = dataType.getClazz();
+        if (clazz.isAssignableFrom(value.getClass())) {
+            return value;
         }
-
+        final Object o;
+        try {
+            o = OBJECT_MAPPER.readValue(OBJECT_MAPPER.writeValueAsString(value), clazz);
+            return o;
+        } catch (IOException e) {
+            throw new RuleExecuteException(e);
+        }
     }
 
 

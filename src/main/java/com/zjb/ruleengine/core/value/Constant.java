@@ -1,7 +1,6 @@
 package com.zjb.ruleengine.core.value;
 
 import cn.hutool.core.text.StrFormatter;
-import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import org.apache.commons.lang3.Validate;
@@ -9,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 
@@ -40,12 +40,12 @@ public class Constant extends Value {
 
     @Override
     public int getWeight() {
-        return 0;
+        return HIGH;
     }
 
     @Override
     public Collection<Element> collectParameter() {
-        return Sets.newHashSet();
+        return Collections.EMPTY_SET;
     }
 
     @Override
@@ -87,8 +87,8 @@ public class Constant extends Value {
     }
 
     @Override
-    public Class getValueType() {
-        return dataType.getClazz();
+    public DataTypeEnum getDataType() {
+        return dataType;
     }
 
     public Object getValue() {

@@ -1,6 +1,5 @@
 package com.zjb.ruleengine;
 
-import com.zjb.ruleengine.core.BaseContextImpl;
 import com.zjb.ruleengine.core.function.HttpObjectFunction;
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ import org.junit.Test;
 public class HttpObjectFunctionTest {
     @Test
     public void test() {
-        final String execute = new DemoHttpFunticonTest().execute(new BaseContextImpl(), "123");
+        final String execute = new DemoHttpFunticonTest().execute("123");
         System.out.println(execute);
     }
 

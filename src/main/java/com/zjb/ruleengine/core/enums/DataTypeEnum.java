@@ -13,20 +13,9 @@ import java.util.Map;
  * @date 2020-09-15 11:30:29
  */
 public enum DataTypeEnum implements Serializable {
-    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), OBJECT(Object.class),JSONOBJECT(JsonNode.class)
-    ;
+    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), OBJECT(Object.class), JSONOBJECT(JsonNode.class);
 
-    //private static Map<String, DataTypeEnum> dataTypeMap = new HashMap<>();
-    private static Map<Class, DataTypeEnum> map = new HashMap<>();
     private Class clazz;
-
-    static {
-        DataTypeEnum[] constants = DataTypeEnum.class.getEnumConstants();
-        for (DataTypeEnum constant : constants) {
-            //dataTypeMap.put(constant.name(), constant);
-            map.put(constant.clazz, constant);
-        }
-    }
 
     DataTypeEnum(Class clazz) {
         this.clazz = clazz;
@@ -36,11 +25,22 @@ public enum DataTypeEnum implements Serializable {
         return clazz;
     }
 
-    public static DataTypeEnum getDataTypeByClass(Class name) {
-
-        return map.get(name);
+    public static DataTypeEnum getDataTypeByClass(Class clazz) {
+        if (Number.class.isAssignableFrom(clazz)) {
+            return NUMBER;
+        }
+        if (STRING.clazz.isAssignableFrom(clazz)) {
+            return STRING;
+        }
+        if (COLLECTION.clazz.isAssignableFrom(clazz)) {
+            return STRING;
+        }
+        if (BOOLEAN.clazz.isAssignableFrom(clazz)) {
+            return STRING;
+        }
+        if (JSONOBJECT.clazz.isAssignableFrom(clazz)) {
+            return STRING;
+        }
+        return OBJECT;
     }
-
-
-
 }

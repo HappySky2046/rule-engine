@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -35,18 +36,18 @@ public class Element extends Value {
     }
 
     @Override
-    public Class getValueType() {
-        return dataType.getClazz();
+    public DataTypeEnum getDataType() {
+        return dataType;
     }
 
     @Override
     public Collection<Element> collectParameter() {
-        return Sets.newHashSet(this);
+        return Collections.unmodifiableSet(Sets.newHashSet(this));
     }
 
     @Override
     public int getWeight() {
-        return 1;
+        return MID;
     }
 
     /**
@@ -91,9 +92,7 @@ public class Element extends Value {
         return this.dataType.getClazz().getSimpleName() + " : " + this.code;
     }
 
-    public DataTypeEnum getDataType() {
-        return dataType;
-    }
+
 
     public void setDataType(DataTypeEnum dataType) {
         this.dataType = dataType;

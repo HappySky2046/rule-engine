@@ -20,7 +20,7 @@ import java.time.LocalTime;
 import java.util.Collection;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
+ * @author 赵静波
  * Created on 2021-01-13
  */
 public class RuleSetTest {
