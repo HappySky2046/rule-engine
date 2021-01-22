@@ -60,7 +60,7 @@ public class Element extends Value {
     @SuppressWarnings("unchecked")
     public Object getValue(Context context) {
         Object value = context.get(code);
-        return dataConversion(value, dataType);
+        return value;
     }
 
     @Override

@@ -62,22 +62,7 @@ public abstract class Value implements Serializable, Weight, Collectors {
         return id;
     }
 
-    public Object dataConversion(Object value, DataTypeEnum dataType) {
-        if (Objects.isNull(value) || dataType == null) {
-            return null;
-        }
-        final Class clazz = dataType.getClazz();
-        if (dataType != DataTypeEnum.POJO && clazz.isAssignableFrom(value.getClass())) {
-            return value;
-        }
-        final Object o;
-        try {
-            o = OBJECT_MAPPER.readValue(OBJECT_MAPPER.writeValueAsString(value), clazz);
-            return o;
-        } catch (IOException e) {
-            throw new RuleExecuteException(e);
-        }
-    }
+
 
 
     public String getId() {

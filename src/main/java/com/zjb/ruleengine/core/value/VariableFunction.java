@@ -52,7 +52,6 @@ public class VariableFunction {
                 continue;
             }
             final DataTypeEnum dataType = parameter.get(funArg.getName()).getDataType();
-
             if (dataType != funArg.getDataTypeEnum()) {
                 throw new RuleValidationException("参数类型不匹配");
             }

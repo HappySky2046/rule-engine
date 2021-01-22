@@ -11,6 +11,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -73,25 +74,40 @@ public class Variable extends Value {
             final Parameter parameter = this.function.getMethodParameter();
             final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(function.getParameterClass());
             Object executeParam;
-            if (dataTypeByClass != DataTypeEnum.POJO) {
+            if (dataTypeByClass == DataTypeEnum.POJO) {
+                executeParam = function.getParameterClass().newInstance();
+                final Field[] declaredFields = function.getParameterClass().getDeclaredFields();
+                for (Field declaredField : declaredFields) {
+                    declaredField.setAccessible(true);
+                    declaredField.set(executeParam, functionParameter.get(declaredField.getName()));
+                    declaredField.setAccessible(false);
+                }
+            } else {
                 if (functionParameter.containsKey(parameter.getName())) {
                     executeParam = dataConversion(functionParameter.get(parameter.getName()), dataTypeByClass);
                 } else {
                     executeParam = null;
                 }
-            } else {
-                executeParam = function.getParameterClass().newInstance();
-                final Field[] declaredFields = function.getParameterClass().getDeclaredFields();
-                for (Field declaredField : declaredFields) {
-                    declaredField.setAccessible(true);
-                    declaredField.set(executeParam,functionParameter.get(declaredField.getName()));
-                    declaredField.setAccessible(false);
-                }
-
             }
             return this.function.getMethod().invoke(function, executeParam);
         } catch (Exception e) {
-            log.error("{}",e);
+            log.error("{}", e);
+            throw new RuleExecuteException(e);
+        }
+    }
+    public Object dataConversion(Object value, DataTypeEnum dataType) {
+        if (Objects.isNull(value) || dataType == null) {
+            return null;
+        }
+        final Class clazz = dataType.getClazz();
+        if (dataType != DataTypeEnum.POJO && clazz.isAssignableFrom(value.getClass())) {
+            return value;
+        }
+        final Object o;
+        try {
+            o = OBJECT_MAPPER.readValue(OBJECT_MAPPER.writeValueAsString(value), clazz);
+            return o;
+        } catch (IOException e) {
             throw new RuleExecuteException(e);
         }
     }

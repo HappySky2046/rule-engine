@@ -60,8 +60,8 @@ public class Constant extends Value {
         if (this.dataType != constant.dataType) {
             return false;
         }
-        Object curValue = dataConversion(this.value, dataType);
-        Object constantValue = dataConversion(constant.getValue(), dataType);
+        Object curValue = this.value;
+        Object constantValue = constant.getValue();
         return curValue.equals(constantValue);
     }
 
@@ -83,7 +83,7 @@ public class Constant extends Value {
      */
     @Override
     public Object getValue(Context context) {
-        return dataConversion(value, dataType);
+        return value;
     }
 
     @Override
@@ -95,7 +95,4 @@ public class Constant extends Value {
         return value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
 }
