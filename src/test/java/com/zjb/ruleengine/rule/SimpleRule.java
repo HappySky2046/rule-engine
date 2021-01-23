@@ -7,6 +7,7 @@ import com.zjb.ruleengine.core.DefaultRuleEngine;
 import com.zjb.ruleengine.core.condition.DefaultCondition;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
+import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
 import com.zjb.ruleengine.core.function.Function;
 import com.zjb.ruleengine.core.function.GetObjectPropertyFunction;
@@ -95,50 +96,59 @@ public class SimpleRule extends BaseTest {
         System.out.println(result);
         Assert.assertTrue((Boolean) result);
     }
-    //
-    //
-    ///**
-    // * 规则测试类（多重函数的规则）
-    // * 规则：如果 年龄>=法定年龄 就是成年人
-    // * 条件（李四的年龄>=法定年龄）：
-    // * 左值为 张三的age：
-    // * 1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
-    // * 2：通过函数 {@link ParentFunction} 获取张三的父亲李四的个人信息
-    // * 2：通过 function {@link GetPropertyFunction.GetPropertyFunctionParameter}从李四个人信息中获取李四的年龄
-    // * 右值法定年龄，age为元素{@link Element}，即入参，
-    // */
-    //@Test
-    //public void isAdult2() throws Exception {
-    //    DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
-    //    //如果想调用某个函数，需要先把函数注册进规则引擎
-    //    registerFunction(ruleEngine);
-    //    /**
-    //     * functionName默认为类名
-    //     * 获取张三的信息
-    //     * {@link PersonHttpFunction}
-    //     */
-    //    final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", ""), ruleEngine.getFunctionHolder());
-    //
-    //    //获取张三他父亲的信息
-    //    final Variable parentVariable = new Variable(new VariableFunction("ParentFunction", personVariable), ruleEngine.getFunctionHolder());
-    //
-    //    //获取张三父亲的age
-    //    final Variable ageVariable = new Variable(new VariableFunction(GetPropertyFunction.class.getSimpleName(), new GetPropertyFunction.GetPropertyFunctionParameter(parentVariable, "age")), ruleEngine.getFunctionHolder());
-    //
-    //
-    //    final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
-    //
-    //    final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
-    //
-    //    ruleEngine.addRule(rule);
-    //    final BaseContextImpl context = new BaseContextImpl();
-    //    //法定年龄18
-    //    context.put(element_code, 18);
-    //    final Object result = ruleEngine.execute(rule_id, context);
-    //    System.out.println(result);
-    //    Assert.assertEquals(result, RuleResultEnum.NULL);
-    //
-    //}
+
+
+    /**
+     * 规则测试类（多重函数的规则）
+     * 规则：如果 年龄>=法定年龄 就是成年人
+     * 条件（李四的年龄>=法定年龄）：
+     * 左值为 张三的age：
+     * 1: 通过 http函数  {@link PersonHttpFunction}获取张三的个人信息
+     * 2：通过函数 {@link ParentFunction} 获取张三的父亲李四的个人信息
+     * 2：通过 function {@link GetObjectPropertyFunction.FunctionParameter}从李四个人信息中获取李四的年龄
+     * 右值法定年龄，age为元素{@link Element}，即入参，
+     */
+    @Test
+    public void isAdult2() throws Exception {
+        DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
+        //如果想调用某个函数，需要先把函数注册进规则引擎
+        final FunctionHolder functionHolder = ruleEngine.getFunctionHolder();
+        /**
+         * functionName默认为类名
+         * 获取张三的信息
+         * {@link PersonHttpFunction}
+         */
+        final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
+
+        HashMap<String, Value> map = Maps.newHashMap();
+        map.put("param", personVariable);
+        //获取张三他父亲的信息
+        final Variable parentVariable = new Variable(new VariableFunction(ParentFunction.class.getSimpleName(), map,functionHolder));
+
+        //获取张三父亲的age
+        final String functionName = GetObjectPropertyFunction.class.getSimpleName();
+
+        final List<Function.Parameter> paramters = functionHolder.getFunction(functionName).getParamters();
+        System.out.println("函数所需要参数：" + paramters);
+        //map = Maps.newHashMap();
+        map.put("object", parentVariable);
+        map.put("fieldName", new Constant(DataTypeEnum.STRING,"age"));
+        final Variable ageVariable = new Variable(new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), map,functionHolder));
+
+
+        final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
+
+        final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
+
+        ruleEngine.addRule(rule);
+        final BaseContextImpl context = new BaseContextImpl();
+        //法定年龄18
+        context.put(element_code, 18);
+        final Object result = ruleEngine.execute(rule_id, context);
+        System.out.println(result);
+        Assert.assertEquals(result, RuleResultEnum.NULL);
+
+    }
 
 
     public AbstractRule getRule() {
