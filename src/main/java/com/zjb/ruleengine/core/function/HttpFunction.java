@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author 赵静波
  * @date 2020-12-07 11:09:34
  */
-public abstract class HttpObjectFunction<T, R> extends Function<T, R> {
+public abstract class HttpFunction<T, R> extends Function<T, R> {
     private static final Logger log = LogManager.getLogger();
 
     @Override

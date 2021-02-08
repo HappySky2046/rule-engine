@@ -11,7 +11,7 @@ import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
 import com.zjb.ruleengine.core.function.Function;
 import com.zjb.ruleengine.core.function.GetObjectPropertyFunction;
-import com.zjb.ruleengine.core.function.HttpObjectFunction;
+import com.zjb.ruleengine.core.function.HttpFunction;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.Rule;
 import com.zjb.ruleengine.core.value.*;
@@ -164,7 +164,7 @@ public class SimpleRule extends BaseTest {
      * "country": "CN"
      * }
      */
-    public static class PersonHttpFunction extends HttpObjectFunction<String, Person> {
+    public static class PersonHttpFunction extends HttpFunction<String, Person> {
 
 
         @Override
