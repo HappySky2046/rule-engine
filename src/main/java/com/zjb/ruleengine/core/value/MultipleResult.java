@@ -20,15 +20,10 @@ public class MultipleResult extends Value {
     private Map<String, Value> multipleResult;
 
     public MultipleResult(Map<String, Value> multipleResult) {
-        super();
+        super(DataTypeEnum.MAP);
         Validate.notNull(multipleResult);
         this.multipleResult = multipleResult;
 
-    }
-
-    @Override
-    public DataTypeEnum getDataType() {
-        return DataTypeEnum.POJO;
     }
 
     @Override

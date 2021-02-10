@@ -32,6 +32,9 @@ public class GetJsonPropertyFunction extends Function<GetJsonPropertyFunction.Fu
             this.fieldName = propertyName;
         }
 
+        public FunctionParameter() {
+
+        }
 
     }
 

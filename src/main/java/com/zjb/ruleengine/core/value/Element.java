@@ -29,16 +29,14 @@ public class Element extends Value {
     private DataTypeEnum dataType;
 
     public Element(DataTypeEnum dataType, String code) {
+        super(dataType);
         Validate.notBlank(code);
         Validate.notNull(dataType);
         this.dataType = dataType;
         this.code = code;
     }
 
-    @Override
-    public DataTypeEnum getDataType() {
-        return dataType;
-    }
+
 
     @Override
     public Collection<Element> collectParameter() {
@@ -60,6 +58,7 @@ public class Element extends Value {
     @SuppressWarnings("unchecked")
     public Object getValue(Context context) {
         Object value = context.get(code);
+        Validate.isAssignableFrom(dataType.getClazz(), value.getClass(), value.getClass() + " not cast to " + dataType.getClazz());
         return value;
     }
 

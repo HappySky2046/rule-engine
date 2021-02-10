@@ -1,8 +1,11 @@
 package com.zjb.ruleengine.core.value;
 
 import cn.hutool.core.collection.CollUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import com.zjb.ruleengine.core.exception.RuleExecuteException;
@@ -32,23 +35,22 @@ public class Variable extends Value {
 
     //private FunctionHolder functionHolder;
 
-    public Variable(VariableFunction function) {
-        super();
+    public Variable(DataTypeEnum dataTypeEnum, VariableFunction function) {
+        super(dataTypeEnum);
         Validate.notNull(function);
         this.function = function;
     }
 
-    @Override
-    public DataTypeEnum getDataType() {
-        final Class resultClass = function.getFunctionHolder().getFunction(this.function.getFunctionName()).getResultClass();
-        return DataTypeEnum.getDataTypeByClass(resultClass);
-    }
 
     @Override
     public Collection<Element> collectParameter() {
-        final Function function = this.function.getFunctionHolder().getFunction(this.function.getFunctionName());
-        final List<Function.Parameter> paramters = function.getParamters();
-        return paramters.stream().map(par -> new Element(par.getDataTypeEnum(), par.getName())).collect(Collectors.toSet());
+        final List<Element> collect = function.getParameter()
+                .values()
+                .stream()
+                .flatMap(val -> val.collectParameter().stream())
+                .collect(Collectors.toList());
+        return Collections.unmodifiableSet(Sets.newHashSet(collect));
+
     }
 
 
@@ -68,13 +70,14 @@ public class Variable extends Value {
         if (CollUtil.isNotEmpty(varParameter)) {
             for (Map.Entry<String, ? extends Value> entry : varParameter.entrySet()) {
                 if (funParamNames.contains(entry.getKey())) {
-                    final Object value = entry.getValue().getValue(context);
+                    //final Object value = entry.getValue().getValue(context);
+                    final Object value = dataConversion(entry.getValue().getValue(context), entry.getValue().getDataTypeEnum());
                     functionParameter.put(entry.getKey(), value);
                 }
             }
         }
 
-        final Parameter parameter = this.function.getMethodParameter();
+
         final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(function.getParameterClass());
         try {
             Object executeParam;
@@ -86,14 +89,17 @@ public class Variable extends Value {
                     declaredField.set(executeParam, functionParameter.get(declaredField.getName()));
                     declaredField.setAccessible(false);
                 }
+            } else if (dataTypeByClass == DataTypeEnum.MAP) {
+                executeParam = functionParameter;
             } else {
+                final Parameter parameter = this.function.getMethodParameter();
                 if (functionParameter.containsKey(parameter.getName())) {
                     executeParam = dataConversion(functionParameter.get(parameter.getName()), dataTypeByClass);
                 } else {
                     executeParam = null;
                 }
             }
-            return this.function.getMethod().invoke(function, executeParam);
+            return dataConversion(this.function.getMethod().invoke(function, executeParam), this.getDataTypeEnum());
         } catch (Exception e) {
             log.error("{}", e);
             throw new RuleExecuteException(e);
@@ -105,7 +111,7 @@ public class Variable extends Value {
             return null;
         }
         final Class clazz = dataType.getClazz();
-        if (dataType != DataTypeEnum.POJO && clazz.isAssignableFrom(value.getClass())) {
+        if (dataType != DataTypeEnum.POJO && dataType != DataTypeEnum.OBJECT && clazz.isAssignableFrom(value.getClass())) {
             return value;
         }
         final Object o;
@@ -139,4 +145,6 @@ public class Variable extends Value {
     public String toString() {
         return function.getFunctionName() + "," + getId();
     }
+
+
 }

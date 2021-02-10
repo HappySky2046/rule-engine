@@ -27,7 +27,7 @@ public class VariableTest {
         //模拟变量的参数，假如参数全部需要element(即用户输入)
         final Map<String, Element> varFunciton = paramters.stream().collect(Collectors.toMap(Function.Parameter::getName, para -> new Element(para.getDataTypeEnum(), para.getName())));
 
-        final Variable variable = new Variable(new VariableFunction(func.getName(), varFunciton, functionHolder));
+        final Variable variable = new Variable(DataTypeEnum.STRING,new VariableFunction(func.getName(), varFunciton, functionHolder));
         final Collection<Element> elements = variable.collectParameter();
         System.out.println("变量需要的参数：" + elements);
         //用户传入的参数

@@ -30,7 +30,7 @@ public class Constant extends Value {
     private DataTypeEnum dataType;
 
     public Constant(DataTypeEnum dataType, Object value) {
-        super();
+        super(dataType);
         Validate.notNull(dataType);
         Validate.notNull(value);
         Validate.isAssignableFrom(dataType.getClazz(), value.getClass(), value.getClass() + " not cast to " + dataType.getClazz());
@@ -84,11 +84,6 @@ public class Constant extends Value {
     @Override
     public Object getValue(Context context) {
         return value;
-    }
-
-    @Override
-    public DataTypeEnum getDataType() {
-        return dataType;
     }
 
     public Object getValue() {

@@ -31,6 +31,11 @@ public abstract class Value implements Serializable, Weight, Collectors {
     protected static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final long serialVersionUID = 8892490391433239102L;
     private String id;
+    private DataTypeEnum dataTypeEnum;
+
+    public Value(DataTypeEnum dataTypeEnum) {
+        this.dataTypeEnum = dataTypeEnum;
+    }
 
     /**
      * 获取权重，权重会影响到执行的先后顺序，权重越高，执行越延后
@@ -50,12 +55,11 @@ public abstract class Value implements Serializable, Weight, Collectors {
 
     public abstract Object getValue(Context context);
 
-    /**
-     * value的类型
-     *
-     * @return
-     */
-    public abstract DataTypeEnum getDataType();
+
+
+    public DataTypeEnum getDataTypeEnum() {
+        return dataTypeEnum;
+    }
 
     @Override
     public String toString() {
