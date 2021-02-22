@@ -2,6 +2,7 @@ package com.zjb.ruleengine;
 
 import com.zjb.ruleengine.core.BaseContextImpl;
 import com.zjb.ruleengine.core.config.FunctionHolder;
+import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import com.zjb.ruleengine.core.function.Function;
 import com.zjb.ruleengine.core.value.Variable;
 import com.zjb.ruleengine.core.value.VariableFunction;
@@ -36,10 +37,10 @@ public class FunctionTest extends BaseTest {
 
         final VariableFunction variableFunction = new VariableFunction(funName, new HashMap<>(),registerFunction());
 
-        Variable variable = new Variable(variableFunction);
+        Variable variable = new Variable(DataTypeEnum.POJO,variableFunction);
         final Object value = variable.getValue(new BaseContextImpl());
         System.out.println(variable.getValue(new BaseContextImpl()));
-        System.out.println(variable.getDataType());
+        System.out.println(variable.getDataTypeEnum());
 
     }
 

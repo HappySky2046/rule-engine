@@ -2,16 +2,20 @@
 package com.zjb.ruleengine.core.enums;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author 赵静波
  * @date 2020-09-15 11:30:29
  */
 public enum DataTypeEnum implements Serializable {
-    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), POJO(Object.class), JSONOBJECT(JsonNode.class);
+    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class),
+    BOOLEAN(Boolean.class), POJO(Object.class), JSONOBJECT(JsonNode.class),
+    OBJECT(Object.class), MAP(Map.class);
 
     private Class clazz;
 
@@ -38,6 +42,12 @@ public enum DataTypeEnum implements Serializable {
         }
         if (JSONOBJECT.clazz.isAssignableFrom(clazz)) {
             return JSONOBJECT;
+        }
+        if (MAP.clazz.isAssignableFrom(clazz)) {
+            return MAP;
+        }
+        if (clazz == OBJECT.clazz) {
+            return OBJECT;
         }
         return POJO;
     }

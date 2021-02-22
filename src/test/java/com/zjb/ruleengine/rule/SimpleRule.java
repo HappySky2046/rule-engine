@@ -71,7 +71,7 @@ public class SimpleRule extends BaseTest {
          * 获取张三的信息
          * {@link PersonHttpFunction}
          */
-        final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
+        final Variable personVariable = new Variable(DataTypeEnum.POJO,new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
         //获取张三的age
         final String functionName = GetObjectPropertyFunction.class.getSimpleName();
         //获取GetObjectPropertyFunction的参数
@@ -81,7 +81,7 @@ public class SimpleRule extends BaseTest {
         ageVariableArgs.put("object", personVariable);
         ageVariableArgs.put("fieldName", new Constant(DataTypeEnum.STRING, "age"));
 
-        final Variable ageVariable = new Variable(new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), ageVariableArgs, functionHolder));
+        final Variable ageVariable = new Variable(DataTypeEnum.NUMBER,new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), ageVariableArgs, functionHolder));
 
 
         final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
@@ -118,12 +118,12 @@ public class SimpleRule extends BaseTest {
          * 获取张三的信息
          * {@link PersonHttpFunction}
          */
-        final Variable personVariable = new Variable(new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
+        final Variable personVariable = new Variable(DataTypeEnum.POJO,new VariableFunction("PersonHttpFunction", Maps.newHashMap(), functionHolder));
 
         HashMap<String, Value> map = Maps.newHashMap();
         map.put("param", personVariable);
         //获取张三他父亲的信息
-        final Variable parentVariable = new Variable(new VariableFunction(ParentFunction.class.getSimpleName(), map,functionHolder));
+        final Variable parentVariable = new Variable(DataTypeEnum.POJO,new VariableFunction(ParentFunction.class.getSimpleName(), map,functionHolder));
 
         //获取张三父亲的age
         final String functionName = GetObjectPropertyFunction.class.getSimpleName();
@@ -133,7 +133,7 @@ public class SimpleRule extends BaseTest {
         //map = Maps.newHashMap();
         map.put("object", parentVariable);
         map.put("fieldName", new Constant(DataTypeEnum.STRING,"age"));
-        final Variable ageVariable = new Variable(new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), map,functionHolder));
+        final Variable ageVariable = new Variable(DataTypeEnum.NUMBER,new VariableFunction(GetObjectPropertyFunction.class.getSimpleName(), map,functionHolder));
 
 
         final DefaultCondition adult = new DefaultCondition("", ageVariable, Symbol.number_ge, new Element(DataTypeEnum.NUMBER, element_code));
