@@ -1,5 +1,6 @@
-package com.zjb.ruleengine;
+package com.zjb.ruleengine.rule;
 
+import com.zjb.ruleengine.BaseTest;
 import com.zjb.ruleengine.core.BaseContextImpl;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.DefaultRuleEngine;
