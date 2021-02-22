@@ -2,7 +2,7 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%logger{36}:%M:%L] - %msg requestId:[-%X{requestId}]%n"/>
+            <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%logger{36}:%M:%L] - %msg requestId:[%X{requestId}]%n"/>
         </Console>
     </Appenders>
     <Loggers>
