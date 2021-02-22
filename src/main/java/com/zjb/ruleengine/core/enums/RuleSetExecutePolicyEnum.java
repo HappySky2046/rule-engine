@@ -14,10 +14,10 @@ public enum RuleSetExecutePolicyEnum implements Serializable {
      * 规则按顺序触发成功一次即返回规则执行结果
      */
     ONE,
-    /**
-     * 规则随机触发成功一次即返回规则执行结果
-     */
-    ANY,
+    ///**
+    // * 规则随机触发成功一次即返回规则执行结果
+    // */
+    //ANY,
     /**
      * 获取所有 触发成功的规则结果
      */

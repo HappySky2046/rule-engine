@@ -32,14 +32,7 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
      * 规则id
      */
     private String id;
-    /**
-     * 规则条件
-     */
-    private AbstractCondition condition;
-    /**
-     * 动作，如果condition==true,则执行actionValue并返回
-     */
-    private Value action;
+
     /**
      * 后置处理器
      */
@@ -50,22 +43,15 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     private List<PreProcessor> preProcessors;
 
 
-    public AbstractRule(String id, AbstractCondition condition, Value action) {
+    public AbstractRule(String id) {
         Validate.notBlank(id, "id不能为空");
         this.id = id;
-        this.condition = condition;
-        this.action = action;
         this.build();
     }
 
 
     @Override
-    public Collection<Element> collectParameter() {
-        final HashSet<Element> parameterNames = Sets.newHashSet();
-        parameterNames.addAll(condition.collectParameter());
-        parameterNames.addAll(action.collectParameter());
-        return Collections.unmodifiableCollection(parameterNames);
-    }
+    public abstract Collection<Element> collectParameter();
 
     /**
      * 增加后置处理器
@@ -94,18 +80,12 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     @Override
     public Object execute(Context context) {
         log.debug("开始执行规则：{}", id);
-        Object result;
-        boolean conditionResult = executeCondition(context);
         if (Objects.nonNull(postProcessors)) {
             postProcessors.forEach(postProcessor ->
                     postProcessor.postProcessorBeforeActionExecute(this, context));
         }
 
-        if (conditionResult) {
-            result = action.getValue(context);
-        } else {
-            result = RuleResultEnum.NULL;
-        }
+        Object result = doExecute(context);
         if (Objects.nonNull(postProcessors)) {
             for (PostProcessor postProcessor : postProcessors) {
                 result = postProcessor.afterProcessorBeforeActionExecute(this, context, result);
@@ -115,16 +95,10 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
         return result;
     }
 
-    protected abstract Boolean executeCondition(Context context);
-
-    public AbstractCondition getCondition() {
-        return condition;
-    }
+    protected abstract Object doExecute(Context context);
 
     @Override
-    public int getWeight() {
-        return this.condition.getWeight();
-    }
+    public abstract int getWeight();
 
     public String getId() {
         return id;
@@ -135,18 +109,12 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
 
     }
 
-    public Value getAction() {
-        return action;
-    }
-
 
     /**
      * 编译规则
      */
-    protected void build() {
+    public void build() {
 
     }
-
-    ;
 
 }

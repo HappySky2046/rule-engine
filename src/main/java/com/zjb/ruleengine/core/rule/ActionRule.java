@@ -13,11 +13,8 @@ import java.util.Collections;
  * Created on 2021-01-02
  * 没有条件的规则，规则永远执行action并返回结果
  */
-public class ActionRule extends AbstractRule {
-    @Override
-    public Boolean executeCondition(Context context) {
-        return true;
-    }
+public class ActionRule extends Rule {
+
 
     public ActionRule(String id, Value action) {
         super(id, null, action);
@@ -31,6 +28,7 @@ public class ActionRule extends AbstractRule {
 
     @Override
     public Collection<Element> collectParameter() {
+
         return Collections.EMPTY_LIST;
     }
 }

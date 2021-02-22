@@ -27,22 +27,18 @@ public class RuleSet extends AbstractRule {
      **/
     private List<AbstractRule> rules;
 
-    private List<AbstractRule> buildRules;
-
-
     private RuleSetExecutePolicyEnum policy = RuleSetExecutePolicyEnum.ONE;
 
     public RuleSet(String id, List<? extends AbstractRule> rules) {
-        super(id, null, null);
+        super(id);
         Validate.notEmpty(rules);
         this.rules = Lists.newArrayList(rules);
-        this.buildRules = rules.stream().sorted(Comparator.comparing(AbstractRule::getWeight)).collect(Collectors.toList());
+
     }
 
-
     @Override
-    public Boolean executeCondition(Context context) {
-        return false;
+    public int getWeight() {
+        return rules.stream().mapToInt(AbstractRule::getWeight).sum();
     }
 
     @Override
@@ -52,22 +48,21 @@ public class RuleSet extends AbstractRule {
     }
 
     @Override
-    public Object execute(Context context) {
-        //校验权限
+    public Object doExecute(Context context) {
         log.debug("规则集：{}开始执行", this.getId());
         //执行规则
         switch (policy) {
-            case ANY:
-                Collections.shuffle(buildRules);
-                for (AbstractRule rule : buildRules) {
-                    Object execute = rule.execute(context);
-                    if (execute != RuleResultEnum.NULL) {
-                        return execute;
-                    }
-                }
-                break;
+            //case ANY:
+            //    Collections.shuffle(rules);
+            //    for (AbstractRule rule : rules) {
+            //        Object execute = rule.execute(context);
+            //        if (execute != RuleResultEnum.NULL) {
+            //            return execute;
+            //        }
+            //    }
+            //    break;
             case ONE:
-                for (AbstractRule rule : buildRules) {
+                for (AbstractRule rule : rules) {
                     Object execute = rule.execute(context);
                     if (execute != RuleResultEnum.NULL) {
                         return execute;
@@ -76,7 +71,7 @@ public class RuleSet extends AbstractRule {
                 break;
             case ALL:
                 List<Object> result = new ArrayList<>();
-                for (AbstractRule rule : buildRules) {
+                for (AbstractRule rule : rules) {
                     Object execute = rule.execute(context);
                     if (execute != RuleResultEnum.NULL) {
                         result.add(execute);
@@ -105,4 +100,8 @@ public class RuleSet extends AbstractRule {
         return ImmutableList.copyOf(this.rules);
     }
 
+    @Override
+    public void build() {
+       rules.sort(Comparator.comparing(AbstractRule::getWeight));
+    }
 }

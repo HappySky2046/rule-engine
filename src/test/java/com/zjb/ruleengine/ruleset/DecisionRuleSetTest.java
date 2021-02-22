@@ -25,7 +25,7 @@ public class DecisionRuleSetTest {
 
     @Test
     public void testBuild() {
-        final ArrayList<AbstractRule> rules = getRules();
+        final ArrayList<Rule> rules = getRules();
 
         DecisionRuleSet ruleSet = new DecisionRuleSet("", rules);
         ruleSet.build();
@@ -48,7 +48,7 @@ public class DecisionRuleSetTest {
         return new Constant(DataTypeEnum.STRING, result);
     }
 
-    private ArrayList<AbstractRule> getRules() {
+    private ArrayList<Rule> getRules() {
         final ArrayList<AbstractCondition> conditionGroup1 = Lists.newArrayList(
                 new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.number_eq, getResult("1")),
                 new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.number_eq, getResult("2")),
@@ -113,7 +113,7 @@ public class DecisionRuleSetTest {
         final Rule rule9 = new Rule("rule9", new ConditionGroup("conditionGroup9", conditionGroup9), getResult("result6"));
 
 
-        final ArrayList<AbstractRule> rules = Lists.newArrayList();
+        final ArrayList<Rule> rules = Lists.newArrayList();
         rules.add(rule1);
         rules.add(rule2);
         rules.add(rule3);
