@@ -53,7 +53,7 @@ public class DecisionRuleSetTest {
         context.put("input3", 33333);
         Object execute = ruleSet.execute(context);
         //回溯
-        Assert.assertTrue(Lists.newArrayList("result1, result2, result2, result2, result3, result3, result5, result6".split(",")).retainAll((Collection)execute));
+        Assert.assertTrue(((Collection)execute).retainAll(Lists.newArrayList("result1, result2, result2, result2, result3, result3, result5, result6".split(","))));
         ruleSet.setPolicy(RuleSetExecutePolicyEnum.ONE);
         context.put("input1", 111);
         context.put("input2", 2222);
