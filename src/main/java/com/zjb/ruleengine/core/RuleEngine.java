@@ -35,5 +35,12 @@ public interface RuleEngine extends Serializable {
      */
     void removeRule(String ruleId);
 
+    /**
+     * 获取rule
+     * @param ruleId
+     * @return
+     */
+    AbstractRule getRule(String ruleId);
+
 
 }

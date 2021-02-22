@@ -54,7 +54,7 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
     @Override
     public Object execute(String ruleId, Context context) {
         MDC.put("requestId", IdUtil.fastSimpleUUID());
-        AbstractRule rule = ruleMap.get(ruleId);
+        AbstractRule rule = getRule(ruleId);
         if (rule == null) {
             throw new RuleEngineException(String.format("not found %s rule", ruleId));
         }
@@ -93,5 +93,8 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
         }
     }
 
-
+    @Override
+    public AbstractRule getRule(String ruleId) {
+        return ruleMap.get(ruleId);
+    }
 }
