@@ -1,6 +1,6 @@
 package com.zjb.ruleengine.core.value;
 
-import com.zjb.ruleengine.core.function.GetPropertyFunction;
+import com.zjb.ruleengine.core.function.GetObjectPropertyFunction;
 
 /**
  * 自动执行
@@ -24,9 +24,9 @@ import com.zjb.ruleengine.core.function.GetPropertyFunction;
  * <p>
  * 则
  *
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
+ * @author 赵静波
  * Created on 2021-01-10
- * @see {@link GetPropertyFunction.GetPropertyFunctionParameter}
+ * @see {@link GetObjectPropertyFunction.GetPropertyFunctionParameter}
  */
 public interface AutoExecute {
 }

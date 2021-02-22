@@ -57,7 +57,7 @@ public class DefaultCondition extends AbstractCondition {
         final HashSet<Element> result = Sets.newHashSet();
         result.addAll(leftValue.collectParameter());
         result.addAll(rightValue.collectParameter());
-        return result;
+        return Collections.unmodifiableSet(result);
     }
 
     @Override

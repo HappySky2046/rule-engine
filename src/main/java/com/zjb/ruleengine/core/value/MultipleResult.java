@@ -1,14 +1,12 @@
 package com.zjb.ruleengine.core.value;
 
 import com.zjb.ruleengine.core.Context;
+import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -29,13 +27,14 @@ public class MultipleResult extends Value {
     }
 
     @Override
-    public Class getValueType() {
-        return Map.class;
+    public DataTypeEnum getDataType() {
+        return DataTypeEnum.OBJECT;
     }
 
     @Override
     public Collection<Element> collectParameter() {
-        return multipleResult.values().stream().flatMap(value -> value.collectParameter().stream()).collect(Collectors.toSet());
+        final Set<Element> collect = multipleResult.values().stream().flatMap(value -> value.collectParameter().stream()).collect(Collectors.toSet());
+        return Collections.unmodifiableSet(collect);
     }
 
     @Override
