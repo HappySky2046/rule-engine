@@ -67,7 +67,7 @@ public abstract class Value implements Serializable, Weight, Collectors {
             return null;
         }
         final Class clazz = dataType.getClazz();
-        if (clazz.isAssignableFrom(value.getClass())) {
+        if (dataType != DataTypeEnum.POJO && clazz.isAssignableFrom(value.getClass())) {
             return value;
         }
         final Object o;

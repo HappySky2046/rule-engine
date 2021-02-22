@@ -3,18 +3,14 @@ package com.zjb.ruleengine.core.function;
 import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
-import com.zjb.ruleengine.core.exception.RuleExecuteException;
 import com.zjb.ruleengine.core.exception.RuleValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -109,11 +105,11 @@ public abstract class Function<T, R> implements Serializable {
     public List<Parameter> getParamters() {
         final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(parameterClass);
 
-        if (dataTypeByClass != DataTypeEnum.OBJECT) {
+        if (dataTypeByClass != DataTypeEnum.POJO && dataTypeByClass != DataTypeEnum.JSONOBJECT) {
             try {
-                final String name = this.getClass().getMethod(getExecuteMethodName(), parameterClass).getParameters()[0].getName();
+                final String name = ClassUtil.getDeclaredMethod(this.getClass(), getExecuteMethodName(), parameterClass).getParameters()[0].getName();
                 return Lists.newArrayList(new Parameter(dataTypeByClass, name));
-            } catch (NoSuchMethodException e) {
+            } catch (Exception e) {
                 throw new RuleValidationException(e);
             }
         }

@@ -1,6 +1,7 @@
 package com.zjb.ruleengine.core.value;
 
 import cn.hutool.core.text.StrFormatter;
+import cn.hutool.core.util.ClassUtil;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import com.zjb.ruleengine.core.exception.RuleValidationException;
@@ -31,7 +32,7 @@ public class VariableFunction {
 
     private FunctionHolder functionHolder;
     private Method method;
-    private Parameter[] methodParameters;
+    private Parameter methodParameter;
 
     public VariableFunction(String functionName, Map<String, ? extends Value> parameter, FunctionHolder functionHolder) {
 
@@ -60,20 +61,25 @@ public class VariableFunction {
         this.functionName = functionName;
         this.parameter = parameter;
         this.functionHolder = functionHolder;
+
         try {
-            this.method = function.getClass().getMethod(function.getExecuteMethodName(), function.getParameterClass());
-        } catch (NoSuchMethodException e) {
+            this.method = ClassUtil.getDeclaredMethod(function.getClass(), function.getExecuteMethodName(), function.getParameterClass());
+        } catch (Exception e) {
             throw new RuleValidationException(e);
         }
-        this.methodParameters = this.method.getParameters();
+        final Parameter[] methodParameters = this.method.getParameters();
+        if (methodParameters.length > 1) {
+            throw new RuleValidationException("只支持单个参数");
+        }
+        this.methodParameter = methodParameters[0];
     }
 
     public Method getMethod() {
         return method;
     }
 
-    public Parameter[] getMethodParameters() {
-        return methodParameters;
+    public Parameter getMethodParameter() {
+        return methodParameter;
     }
 
     public String getFunctionName() {
