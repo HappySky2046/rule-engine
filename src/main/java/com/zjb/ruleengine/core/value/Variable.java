@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
+import com.zjb.ruleengine.core.exception.RuleExecuteException;
 import com.zjb.ruleengine.core.function.Function;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -131,7 +132,6 @@ public class Variable extends Value {
             try {
                 final Field[] declaredFields = parameter.getClass().getDeclaredFields();
                 for (Field declaredField : declaredFields) {
-
                     declaredField.setAccessible(true);
                     final Object fieldValue = declaredField.get(parameter);
                     if ((fieldValue instanceof AutoExecute) && declaredField.getType() != Object.class) {
@@ -141,16 +141,16 @@ public class Variable extends Value {
                         continue;
                     }
                     if (fieldValue instanceof Value) {
+                        //递归获取值
                         declaredField.set(parameter, ((Value) fieldValue).getValue(context));
                     }
                     declaredField.setAccessible(false);
                 }
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.error("{}", e);
+                throw new RuleExecuteException(e.getMessage());
             }
         }
-
-
         final Function function = functionHolder.getFunction(this.function.getFunctionName());
         return function.execute(context, parameter);
     }
