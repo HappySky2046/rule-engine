@@ -75,6 +75,7 @@ public class SimpleRule extends BaseTest {
 
         ruleEngine.addRule(rule);
         final BaseContextImpl context = new BaseContextImpl();
+        //法定年龄18
         context.put(element_code, 18);
         final Object result = ruleEngine.execute(rule_id, context);
         System.out.println(result);
@@ -118,6 +119,7 @@ public class SimpleRule extends BaseTest {
 
         ruleEngine.addRule(rule);
         final BaseContextImpl context = new BaseContextImpl();
+        //法定年龄18
         context.put(element_code, 18);
         final Object result = ruleEngine.execute(rule_id, context);
         System.out.println(result);
