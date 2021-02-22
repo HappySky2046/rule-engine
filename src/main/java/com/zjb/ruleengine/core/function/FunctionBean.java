@@ -1,7 +1,7 @@
 //package com.zjb.ruleengine.core.function;
 //
 ///**
-// * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
+// * @author 赵静波
 // * Created on 2020-12-01
 // */
 //public class
