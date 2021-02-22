@@ -31,6 +31,7 @@
 
 ## 设计
 ![在这里插入图片描述](https://raw.githubusercontent.com/zjb-it/rule-engine/master/screenshot/structure.jpg)
+
 规则引擎主要包含3种类型的规则及一个函数容器
 
  1. 规则：主要包含条件及结果，条件可以是单个条件，条件组，及条件集，加载规则时，在不改变执行结果的情况下，默认会根据条件的权重进行优化排序，以提高执行效率，条件==true, 则返回结果
