@@ -1,5 +1,9 @@
 package com.zjb.ruleengine.core.rule;
 
+/**
+ * @author 赵静波
+ * @date 2020-08-24 19:00:38
+ */
 public abstract class RuleSetParser {
 
     //private static final Logger log = LogManager.getLogger();

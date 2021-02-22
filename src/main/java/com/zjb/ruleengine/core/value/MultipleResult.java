@@ -13,11 +13,9 @@ import java.util.stream.Collectors;
 
 
 /**
- * 变量
- *
- * @author zjb
- * @Date 07/11/2019
- **/
+ * @author 赵静波
+ * @date 2020-08-28 16:55:38
+ */
 public class MultipleResult extends Value {
 
     private static final Logger log = LogManager.getLogger();

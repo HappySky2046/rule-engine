@@ -5,9 +5,8 @@ import com.zjb.ruleengine.core.Context;
 import org.apache.commons.lang3.Validate;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-07
- * 获取对象中的属性值
+ * @author 赵静波
+ * @date 2020-12-07 11:47:03
  */
 public class GetPropertyFunction extends Function<GetPropertyFunction.GetPropertyFunctionParameter, Object> {
     @Override

@@ -6,6 +6,10 @@ import java.util.Map;
 
 public enum MatchEnum implements Serializable {
     ALL_MATCH(1), ONE_MATCH(2);
+    /**
+     * @author 赵静波
+     * @date 2020-08-25 09:54:30
+     */
     private Integer status;
     private static Map<Integer, MatchEnum> map = new HashMap<>();
     private static Map<String, MatchEnum> nameMap = new HashMap<>();

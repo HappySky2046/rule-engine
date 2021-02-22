@@ -8,8 +8,8 @@ import java.lang.reflect.Modifier;
 import java.util.Set;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-07
+ * @author 赵静波
+ * @date 2020-12-07 14:30:00
  */
 public class BaseTest {
     public FunctionHolder registerFunction() throws Exception{

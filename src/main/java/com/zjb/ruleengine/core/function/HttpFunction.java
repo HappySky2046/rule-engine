@@ -2,6 +2,7 @@ package com.zjb.ruleengine.core.function;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.http.HttpUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import com.zjb.ruleengine.core.Context;
@@ -12,12 +13,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 /**
- * @author 赵静波 <wb_zhaojingbo@kuaishou.com>
- * Created on 2020-12-07
+ * @author 赵静波
+ * @date 2020-12-07 11:09:34
  */
 public abstract class HttpFunction<T, R> extends Function<T, R> {
     private static final Logger log = LogManager.getLogger();
-
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public R execute(Context context, T param) {
@@ -32,7 +33,13 @@ public abstract class HttpFunction<T, R> extends Function<T, R> {
      * @return
      */
     protected R post(Context context, T param) {
-        return parseObject(HttpUtil.post(getUrl(), getParam(context, param)));
+        try {
+            return parseObject(HttpUtil.post(getUrl(), objectMapper.writeValueAsString(getParam(context, param))));
+        } catch (JsonProcessingException e) {
+            log.error("{}", e);
+            throw new RuleExecuteException("接口返回值parse错误{}", e);
+        }
+
     }
 
     protected R parseObject(String result) {
@@ -58,6 +65,7 @@ public abstract class HttpFunction<T, R> extends Function<T, R> {
         final ImmutableMap.Builder builder = new ImmutableMap.Builder();
         builder.put("context", context);
         builder.put("param", param);
+
         return builder.build();
 
     }

@@ -7,6 +7,10 @@ import java.util.Map;
 public enum LoopStrategyEnum implements Serializable {
     HighestPriorityReturnAll(0), HighestPriorityReturnSignle(1)
     ,AllPriorityReturnAll(2),AllPriorityReturnSingle(3);
+    /**
+     * @author 赵静波
+     * @date 2020-08-25 09:54:30
+     */
     private Integer status;
     private static Map<Integer, LoopStrategyEnum> map = new HashMap<>();
     private static Map<String, LoopStrategyEnum> nameMap = new HashMap<>();

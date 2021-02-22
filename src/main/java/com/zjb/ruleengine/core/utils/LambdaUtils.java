@@ -10,12 +10,8 @@ import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
 
 /**
- * 〈一句话功能简述〉<br>
- * 〈lambda操作工具类〉
- *
- * @author v-dingqianwen.ea
- * @create 2019/9/12
- * @since 1.0.0
+ * @author 赵静波
+ * @date 2020-08-24 18:41:24
  */
 public class LambdaUtils {
     private static final Logger log = LogManager.getLogger();

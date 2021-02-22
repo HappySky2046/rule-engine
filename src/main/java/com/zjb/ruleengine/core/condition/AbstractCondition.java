@@ -10,11 +10,9 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * 条件抽象类
- *
- * @author zjb
- * @Date 06/23/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-30 14:06:40
+ */
 public abstract class AbstractCondition implements Serializable, Weight, Collectors {
     /**
      * id，可用于标识

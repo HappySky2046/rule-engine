@@ -3,7 +3,8 @@ package com.zjb.ruleengine.core.auth;
 import com.zjb.ruleengine.core.Context;
 
 /**
- * 权限认证接口
+ * @author 赵静波
+ * @date 2020-09-15 11:15:22
  */
 public abstract class IAuthorization {
 

@@ -12,11 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
- * 条件集
- *
- * @author zjb
- * @Date 06/24/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-30 14:53:22
+ */
 
 public class ConditionGroup extends AbstractCondition {
     private static final Logger log = LogManager.getLogger();

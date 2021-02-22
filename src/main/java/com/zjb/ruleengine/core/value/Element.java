@@ -11,11 +11,9 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * 变量
- *
- * @author zjb
- * @Date 07/11/2019
- **/
+ * @author 赵静波
+ * @date 2020-09-15 11:30:29
+ */
 public class Element extends Value {
 
     private static final Logger log = LogManager.getLogger();
