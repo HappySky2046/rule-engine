@@ -23,9 +23,9 @@ public class ConditionTest {
      */
     @Test
     public void testConditionGroup() {
-        final DefaultCondition condtion1 = new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.eq, getResult("1"));
-        final DefaultCondition condtion2 = new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.eq, getResult("2"));
-        final DefaultCondition condtion3 = new DefaultCondition("conditionGroup1_condtion3", getInput3(), Symbol.eq, getResult("3"));
+        final DefaultCondition condtion1 = new DefaultCondition("conditionGroup1_condtion1", getInput1(), Symbol.number_eq, getResult("1"));
+        final DefaultCondition condtion2 = new DefaultCondition("conditionGroup1_condtion2", getInput2(), Symbol.number_eq, getResult("2"));
+        final DefaultCondition condtion3 = new DefaultCondition("conditionGroup1_condtion3", getInput3(), Symbol.number_eq, getResult("3"));
         ConditionGroup conditionGroup1=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));
         ConditionGroup conditionGroup2=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));
         ConditionGroup conditionGroup3=new ConditionGroup("",Lists.newArrayList(condtion1, condtion2, condtion3));

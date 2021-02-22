@@ -35,7 +35,7 @@ public class Element extends Value {
     }
 
     @Override
-    public Class getResultType() {
+    public Class getValueType() {
         return dataType.getClazz();
     }
 

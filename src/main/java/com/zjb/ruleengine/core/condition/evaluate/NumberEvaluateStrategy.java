@@ -30,10 +30,13 @@ public class NumberEvaluateStrategy implements Evaluate {
     @Override
     @SuppressWarnings("unchecked")
     public boolean evaluate(Object leftValue, Object rightValue, Symbol operatorType) {
+        if (leftValue == null || rightValue == null) {
+            return false;
+        }
         if (!(leftValue instanceof Number)) {
             throw new RuleEngineException("左值必须是number");
         }
-        if (operatorType == Symbol.in) {
+        if (operatorType == Symbol.number_in) {
             return BooleanEvaluateStrategy.getInstance().in(rightValue, leftValue);
         } else if (operatorType == Symbol.not_in) {
             return !BooleanEvaluateStrategy.getInstance().in(rightValue, leftValue);
@@ -41,9 +44,7 @@ public class NumberEvaluateStrategy implements Evaluate {
         if (!(rightValue instanceof Number)) {
             throw new RuleEngineException("右值必须是number");
         }
-        if (leftValue == null || rightValue == null) {
-            return false;
-        }
+
         String leftTempString = leftValue + "";
         String rightTempString = rightValue + "";
         if (leftTempString.equals(BLANK_STRING) || rightTempString.equals(BLANK_STRING) ||
@@ -66,23 +67,24 @@ public class NumberEvaluateStrategy implements Evaluate {
         }
         int compare = left.compareTo(right);
         switch (operatorType) {
-            case eq:
+            case number_eq:
                 return compare == 0;
-            case gt:
+            case number_gt:
                 return compare > 0;
-            case lt:
+            case number_lt:
                 return compare < 0;
-            case ge:
+            case number_ge:
                 return compare >= 0;
-            case le:
+            case number_le:
                 return compare <= 0;
-            case ne:
+            case number_ne:
                 return compare != 0;
             default:
                 log.warn("操作符" + operatorType + "不匹配");
                 throw new RuleEngineException("操作符 " + operatorType + " 不匹配");
         }
     }
+
 
 
 }

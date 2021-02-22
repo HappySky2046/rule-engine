@@ -87,7 +87,7 @@ public class Constant extends Value {
     }
 
     @Override
-    public Class getResultType() {
+    public Class getValueType() {
         return dataType.getClazz();
     }
 
