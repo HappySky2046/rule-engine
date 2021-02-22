@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
+import com.zjb.ruleengine.core.function.FunctionBean;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -116,6 +117,13 @@ public class Variable extends Value {
         return function.getFunction().execute(context, parameter);
     }
 
+    /**
+     * 获取variable返回值的类型
+     * @return
+     */
+    public Class getValueClass() {
+        return functionHolder.getFunction(this.function.getFunctionName()).getFunctionResultType();
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -135,6 +143,8 @@ public class Variable extends Value {
         return Objects.hash(this.function);
     }
 
-
-
+    @Override
+    public String toString() {
+        return function.getFunctionName() + "," + getId();
+    }
 }

@@ -3,10 +3,12 @@ package com.zjb.ruleengine.core.condition;
 
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.value.Element;
+import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -18,19 +20,30 @@ import java.util.stream.Collectors;
 
 public class ConditionGroup extends AbstractCondition {
     private static final Logger log = LogManager.getLogger();
-
+    /**
+     * 全局缓存，少存储condition
+     */
+    private static Map<AbstractCondition, AbstractCondition> CONDITION_CACHE = new ConcurrentHashMap<>();
     /**
      * 条件组，由多个条件组成，条件全部为true则为true
      */
     private List<AbstractCondition> conditions;
 
-    public ConditionGroup(String id) {
-        super(id);
-    }
-
+    /**
+     * 原型模式
+     * @param id
+     * @param conditions
+     */
     public ConditionGroup(String id, List<AbstractCondition> conditions) {
         super(id);
-        this.conditions = conditions;
+        Validate.notEmpty(conditions, "conditions not empty");
+        this.conditions = conditions.stream().map(con -> {
+            if (CONDITION_CACHE.containsKey(con)) {
+                return CONDITION_CACHE.get(con);
+            }
+            CONDITION_CACHE.put(con, con);
+            return con;
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -42,12 +55,18 @@ public class ConditionGroup extends AbstractCondition {
         if (conditions == null) {
             conditions = new ArrayList<>(16);
         }
-        conditions.add(condition);
+        if (CONDITION_CACHE.containsKey(condition)) {
+            conditions.add(CONDITION_CACHE.get(condition));
+        }else{
+            CONDITION_CACHE.put(condition, condition);
+            conditions.add(condition);
+        }
+
     }
 
     @Override
     public Collection<Element> collectParameter() {
-        return conditions.stream().flatMap(con->con.collectParameter().stream()).collect(Collectors.toSet());
+        return conditions.stream().flatMap(con -> con.collectParameter().stream()).collect(Collectors.toSet());
     }
 
     /**
@@ -66,7 +85,7 @@ public class ConditionGroup extends AbstractCondition {
                 break;
             }
         }
-        log.debug("ConditionGroup id:{},执行结果{}",super.getId(),result);
+        log.debug("ConditionGroup id:{},执行结果{}", super.getId(), result);
         return result;
     }
 

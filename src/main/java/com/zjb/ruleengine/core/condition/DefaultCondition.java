@@ -1,6 +1,7 @@
 
 package com.zjb.ruleengine.core.condition;
 
+import cn.hutool.core.text.StrFormatter;
 import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.condition.evaluate.*;
@@ -12,10 +13,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -62,7 +60,7 @@ public class DefaultCondition extends AbstractCondition {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(leftValue,symbol,rightValue);
     }
 
     @Override
@@ -115,6 +113,11 @@ public class DefaultCondition extends AbstractCondition {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return StrFormatter.format("{}[{}{}{}]",this.getId(),leftValue.getId(),symbol.getSymbol(),rightValue.getId());
     }
 
     @Override

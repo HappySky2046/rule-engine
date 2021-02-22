@@ -26,6 +26,6 @@ public class Rule extends AbstractRule implements Serializable {
 
     @Override
     public void build() {
-        this.condition = getCondition().build();
+        this.condition = super.getCondition().build();
     }
 }

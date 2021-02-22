@@ -1,6 +1,5 @@
 package com.zjb.ruleengine.core.value;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
@@ -86,7 +85,7 @@ public class Element extends Value {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(this);
+        return this.dataType.getClazz().getSimpleName() +" : "+ this.code;
     }
 
     public DataTypeEnum getDataType() {

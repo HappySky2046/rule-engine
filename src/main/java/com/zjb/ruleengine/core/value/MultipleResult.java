@@ -71,5 +71,8 @@ public class MultipleResult extends Value {
         return Objects.hash(this.multipleResult);
     }
 
-
+    @Override
+    public String toString() {
+        return multipleResult.entrySet().stream().map(entry->entry.getKey()+"="+entry.getValue()).collect(Collectors.joining());
+    }
 }

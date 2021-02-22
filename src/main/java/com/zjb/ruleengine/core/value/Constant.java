@@ -1,5 +1,6 @@
 package com.zjb.ruleengine.core.value;
 
+import cn.hutool.core.text.StrFormatter;
 import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
@@ -34,6 +35,7 @@ public class Constant extends Value {
         super();
         Validate.notNull(dataType);
         Validate.notNull(value);
+        Validate.isTrue(dataType.getClazz() == value.getClass(),"value not cast to "+dataType.getClazz());
         this.value = value;
         this.dataType = dataType;
     }
@@ -68,6 +70,11 @@ public class Constant extends Value {
     @Override
     public int hashCode() {
         return Objects.hash(this.dataType,this.value);
+    }
+
+    @Override
+    public String toString() {
+        return StrFormatter.format("{} : {}", dataType.getClazz().getSimpleName(), value);
     }
 
     /**
