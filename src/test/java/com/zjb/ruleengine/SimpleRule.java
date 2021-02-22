@@ -5,10 +5,14 @@ import com.zjb.ruleengine.core.DefaultRuleEngine;
 import com.zjb.ruleengine.core.condition.DefaultCondition;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
+import com.zjb.ruleengine.core.function.GetPropertyFunction;
+import com.zjb.ruleengine.core.function.HttpFunction;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.Rule;
 import com.zjb.ruleengine.core.value.Constant;
 import com.zjb.ruleengine.core.value.Element;
+import com.zjb.ruleengine.core.value.Variable;
+import com.zjb.ruleengine.core.value.VariableFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,24 +27,101 @@ public class SimpleRule extends BaseTest {
 
     /**
      * 规则测试类
-     * 简单的规则
+     * 简单的规则（如果年龄>=18就是成年人）
+     *      条件（age>=18）：左值age为元素{@link Element}，即入参, 右值为常量{@link Constant}等于18
+     *      结果 true
+     *
+     *
      */
     @Test
-    public void test() throws Exception {
+    public void isAdult() throws Exception {
         DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
         ruleEngine.addRule(getRule());
         final BaseContextImpl context = new BaseContextImpl();
         context.put(element_code, 20);
-        final Object simple_rule1 = ruleEngine.execute(rule_id, context);
-        Assert.assertTrue((Boolean) simple_rule1);
-
+        final Object result = ruleEngine.execute(rule_id, context);
+        Assert.assertTrue((Boolean) result);
     }
+
+
+    @Test
+    public void isAdult1() throws Exception {
+        DefaultRuleEngine ruleEngine = new DefaultRuleEngine();
+        //如果想调用某个函数，需要先把函数注册进规则引擎
+        registerFunction(ruleEngine);
+        /**
+         * functionName默认为类名
+         * 获取张三的信息
+         */
+        final Variable personVariable = new Variable(new VariableFunction("PersonFunction", ""), ruleEngine.getFunctionHolder());
+
+        final Variable ageVariable = new Variable(new VariableFunction(GetPropertyFunction.class.getSimpleName(), new GetPropertyFunction.GetPropertyFunctionParameter(personVariable,"age")), ruleEngine.getFunctionHolder());
+
+
+        final DefaultCondition adult = new DefaultCondition("", new Element(DataTypeEnum.NUMBER, element_code), Symbol.ge, ageVariable);
+
+        final Rule rule = new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
+
+        ruleEngine.addRule(rule);
+        final BaseContextImpl context = new BaseContextImpl();
+        context.put(element_code, 20);
+        final Object result = ruleEngine.execute(rule_id, context);
+        Assert.assertTrue((Boolean) result);
+    }
+
+
 
 
     public AbstractRule getRule() {
         final DefaultCondition adult = new DefaultCondition("", new Element(DataTypeEnum.NUMBER, element_code), Symbol.ge, new Constant(DataTypeEnum.NUMBER, 18));
         return new Rule(rule_id, adult, new Constant(DataTypeEnum.BOOLEAN, true));
     }
+
+    /**
+     * http接口，返回值
+     * {
+     *   "age": 18,
+     *   "name": "张三",
+     *   "country": "CN"
+     * }
+     */
+    public static class PersonFunction extends HttpFunction<String, Person> {
+        @Override
+        protected String getUrl() {
+            return "http://rap2api.taobao.org/app/mock/273721/example/1608461246900";
+        }
+    }
+
+    public static class Person{
+        private Integer age;
+        private String name;
+        private String country;
+
+        public Integer getAge() {
+            return age;
+        }
+
+        public void setAge(Integer age) {
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+    }
+
 
 
 }
