@@ -86,6 +86,11 @@ public class Constant extends Value {
         return dataConversion(value, dataType);
     }
 
+    @Override
+    public Class getResultType() {
+        return dataType.getClazz();
+    }
+
     public Object getValue() {
         return value;
     }

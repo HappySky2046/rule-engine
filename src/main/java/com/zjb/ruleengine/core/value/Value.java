@@ -23,12 +23,14 @@ import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy
  * @date 2020-09-15 11:30:29
  */
 
-public abstract class Value implements Serializable, Weight, Collectors {
+public abstract class Value implements Serializable, Weight, Collectors, AutoExecute {
     private static final Logger log = LogManager.getLogger();
     private static final long serialVersionUID = 8892490391433239102L;
     private String id;
+
     /**
      * 获取权重，权重会影响到执行的先后顺序，权重越高，执行越延后
+     *
      * @return
      */
     @Override
@@ -36,19 +38,26 @@ public abstract class Value implements Serializable, Weight, Collectors {
 
     /**
      * 获取当前value有几个入参
-      * @return
+     *
+     * @return
      */
     @Override
     public abstract Collection<Element> collectParameter();
 
     public abstract Object getValue(Context context);
 
+    /**
+     * value的类型
+     * @return
+     */
+    public abstract Class getResultType();
+
     @Override
     public String toString() {
         return id;
     }
 
-    public  Object dataConversion(Object value, DataTypeEnum dataType) {
+    public Object dataConversion(Object value, DataTypeEnum dataType) {
         if (Objects.isNull(value)) {
             return null;
         }
