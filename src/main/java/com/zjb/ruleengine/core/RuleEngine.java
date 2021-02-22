@@ -16,7 +16,7 @@ public interface RuleEngine extends Serializable {
      * @Param context - 已装载的上下文
      * @Param ruleSetCode - 需要执行的规则编码
      **/
-    Object execute(String ruleSetCode,Context context);
+    Object execute(String ruleId,Context context);
 
     /**
      * @Author zjb

@@ -31,23 +31,11 @@ public class DecisionRuleSet extends RuleSet {
     private TreeNodeCondition rootCondition;
 
 
-    public DecisionRuleSet(Builder builder) {
-        super(builder);
+    public DecisionRuleSet(List<? extends AbstractRule> rules) {
+        super(rules);
     }
-
-
-    @Override
-    public String toJsonString() {
-        /**
-         *  没有必要格式化decisionForest，会通过{@link DecisionRuleSet.buildTree}构建
-         */
-        this.rootCondition = null;
-        return super.toJsonString();
-    }
-
-    @Override
-    public void parse(String json, RuleSetParser parser) {
-        super.parse(json, parser);
+    public DecisionRuleSet(String id,List<? extends AbstractRule> rules) {
+        super(id,rules);
     }
 
     @Override
