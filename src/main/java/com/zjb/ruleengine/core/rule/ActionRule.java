@@ -1,7 +1,11 @@
 package com.zjb.ruleengine.core.rule;
 
+import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.Context;
+import com.zjb.ruleengine.core.value.Element;
 import com.zjb.ruleengine.core.value.Value;
+
+import java.util.Collection;
 
 /**
  * @author 赵静波
@@ -18,8 +22,14 @@ public class ActionRule extends AbstractRule {
         super(id, null, action);
     }
 
-    @Override
-    public void build() {
 
+    @Override
+    public int getWeight() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public Collection<Element> collectParameter() {
+        return Lists.newArrayList();
     }
 }

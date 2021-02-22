@@ -1,4 +1,4 @@
-package com.zjb.ruleengine;
+package com.zjb.ruleengine.ruleset;
 
 import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.condition.AbstractCondition;
@@ -27,7 +27,7 @@ public class DecisionRuleSetTest {
     public void testBuild() {
         final ArrayList<AbstractRule> rules = getRules();
 
-        DecisionRuleSet ruleSet = new DecisionRuleSet(rules);
+        DecisionRuleSet ruleSet = new DecisionRuleSet("",rules);
         ruleSet.build();
         System.out.println();
     }

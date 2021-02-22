@@ -5,14 +5,12 @@ import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.RuleSetExecutePolicyEnum;
+import com.zjb.ruleengine.core.value.Element;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -34,21 +32,22 @@ public class RuleSet extends AbstractRule {
 
     private RuleSetExecutePolicyEnum policy = RuleSetExecutePolicyEnum.ONE;
 
-    public RuleSet(List<? extends AbstractRule> rules) {
-        super(null, null);
+    public RuleSet(String id,List<? extends AbstractRule> rules) {
+        super(id,null, null);
         Validate.notEmpty(rules);
         this.rules = Lists.newArrayList(rules);
-        this.build();
+        this.buildRules = rules.stream().sorted(Comparator.comparing(AbstractRule::getWeight)).collect(Collectors.toList());
     }
 
-    public RuleSet(String id, List<? extends AbstractRule> rules) {
-        this(rules);
-        this.setId(id);
-    }
 
     @Override
     public Boolean executeCondition(Context context) {
-        return null;
+        return false;
+    }
+
+    @Override
+    public Collection<Element> collectParameter() {
+        return rules.stream().flatMap(rule -> rule.collectParameter().stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -93,12 +92,13 @@ public class RuleSet extends AbstractRule {
         return RuleResultEnum.NULL;
     }
 
-
-    @Override
-    public void build() {
-        this.buildRules = rules.stream().sorted(Comparator.comparing(AbstractRule::getWeight)).collect(Collectors.toList());
+    public RuleSetExecutePolicyEnum getPolicy() {
+        return policy;
     }
 
+    public void setPolicy(RuleSetExecutePolicyEnum policy) {
+        this.policy = policy;
+    }
 
     public List<AbstractRule> getRules() {
         return ImmutableList.copyOf(this.rules);
