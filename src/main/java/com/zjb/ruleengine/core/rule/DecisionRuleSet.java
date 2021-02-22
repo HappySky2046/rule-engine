@@ -1,7 +1,6 @@
 package com.zjb.ruleengine.core.rule;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.text.StrFormatter;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.Context;
@@ -49,21 +48,24 @@ public class DecisionRuleSet extends AbstractRule {
 
     @Override
     public Object doExecute(Context context) {
-
+        //备忘录
+        Map<TreeNodeCondition, Boolean> memo = new HashMap<>();
         if (policy == RuleSetExecutePolicyEnum.ONE) {
-            return recursiveExecute(rootCondition, context);
+            return recursiveExecute(rootCondition, context, memo);
         }
         if (policy == RuleSetExecutePolicyEnum.ALL) {
             final ArrayList<Object> result = Lists.newArrayList();
-            backtrackingExecute(rootCondition, context, result);
-            return result;
+            backtrackingExecute(rootCondition, context, result, memo);
+            if (result.size() > 0) {
+                return result;
+            }
         }
         return RuleResultEnum.NULL;
     }
 
-    private void backtrackingExecute(TreeNodeCondition treeNodeCondition, Context context, List<Object> result) {
+    private void backtrackingExecute(TreeNodeCondition treeNodeCondition, Context context, List<Object> result, Map<TreeNodeCondition, Boolean> memo) {
         if (treeNodeCondition == null) {
-            throw new RuleExecuteException("TreeNodeCondition不能为");
+            throw new RuleExecuteException("TreeNodeCondition不能为null");
         }
         if (treeNodeCondition.isLeaf()) {
             final List<Object> collect = treeNodeCondition.getResults().stream().map(condition -> condition.getValue(context)).collect(Collectors.toList());
@@ -75,14 +77,21 @@ public class DecisionRuleSet extends AbstractRule {
             throw new RuleExecuteException(String.format("{}不能叶子节点，也没有子节点", treeNodeCondition.getNodeCondition().getId()));
         }
         for (TreeNodeCondition condition : nodeConditions.keySet()) {
-            if (condition.getNodeCondition().evaluate(context)) {
-                backtrackingExecute(condition, context,result);
+            if (memo.containsKey(condition) && memo.get(condition)) {
+                backtrackingExecute(condition, context, result, memo);
+            } else {
+                final boolean evaluate = condition.getNodeCondition().evaluate(context);
+                memo.put(condition, evaluate);
+                if (evaluate) {
+                    backtrackingExecute(condition, context, result, memo);
+                }
             }
+
         }
 
     }
 
-    private Object recursiveExecute(TreeNodeCondition treeNodeCondition, Context context) {
+    private Object recursiveExecute(TreeNodeCondition treeNodeCondition, Context context, Map<TreeNodeCondition, Boolean> memo) {
         if (treeNodeCondition == null) {
             throw new RuleExecuteException("TreeNodeCondition不能为");
         }
@@ -94,8 +103,13 @@ public class DecisionRuleSet extends AbstractRule {
             throw new RuleExecuteException(String.format("{}不能叶子节点，也没有子节点", treeNodeCondition.getNodeCondition().getId()));
         }
         for (TreeNodeCondition condition : nodeConditions.keySet()) {
-            if (condition.getNodeCondition().evaluate(context)) {
-                return recursiveExecute(condition, context);
+            if (memo.containsKey(condition) && memo.get(condition)) {
+                return recursiveExecute(condition, context, memo);
+            }
+            final boolean evaluate = condition.getNodeCondition().evaluate(context);
+            memo.put(condition, evaluate);
+            if (evaluate) {
+                return recursiveExecute(condition, context, memo);
             }
         }
         return RuleResultEnum.NULL;
