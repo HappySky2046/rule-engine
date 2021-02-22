@@ -1,15 +1,19 @@
 package com.zjb.ruleengine.core.rule;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.text.StrFormatter;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.condition.AbstractCondition;
 import com.zjb.ruleengine.core.condition.ConditionGroup;
 import com.zjb.ruleengine.core.condition.DefaultCondition;
 import com.zjb.ruleengine.core.decistion.TreeNodeCondition;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
+import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.RuleSetExecutePolicyEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
+import com.zjb.ruleengine.core.exception.RuleExecuteException;
 import com.zjb.ruleengine.core.value.Constant;
 import com.zjb.ruleengine.core.value.Element;
 import org.apache.logging.log4j.LogManager;
@@ -45,11 +49,56 @@ public class DecisionRuleSet extends AbstractRule {
 
     @Override
     public Object doExecute(Context context) {
-        final LinkedHashMap<TreeNodeCondition, Object> nodeConditions = rootCondition.getChildrenNodeConditions();
 
+        if (policy == RuleSetExecutePolicyEnum.ONE) {
+            return recursiveExecute(rootCondition, context);
+        }
+        if (policy == RuleSetExecutePolicyEnum.ALL) {
+            final ArrayList<Object> result = Lists.newArrayList();
+            backtrackingExecute(rootCondition, context, result);
+            return result;
+        }
+        return RuleResultEnum.NULL;
+    }
 
+    private void backtrackingExecute(TreeNodeCondition treeNodeCondition, Context context, List<Object> result) {
+        if (treeNodeCondition == null) {
+            throw new RuleExecuteException("TreeNodeCondition不能为");
+        }
+        if (treeNodeCondition.isLeaf()) {
+            final List<Object> collect = treeNodeCondition.getResults().stream().map(condition -> condition.getValue(context)).collect(Collectors.toList());
+            result.addAll(collect);
+            return;
+        }
+        final LinkedHashMap<TreeNodeCondition, Object> nodeConditions = treeNodeCondition.getChildrenNodeConditions();
+        if (CollUtil.isEmpty(nodeConditions)) {
+            throw new RuleExecuteException(String.format("{}不能叶子节点，也没有子节点", treeNodeCondition.getNodeCondition().getId()));
+        }
+        for (TreeNodeCondition condition : nodeConditions.keySet()) {
+            if (condition.getNodeCondition().evaluate(context)) {
+                backtrackingExecute(condition, context,result);
+            }
+        }
 
-        return super.execute(context);
+    }
+
+    private Object recursiveExecute(TreeNodeCondition treeNodeCondition, Context context) {
+        if (treeNodeCondition == null) {
+            throw new RuleExecuteException("TreeNodeCondition不能为");
+        }
+        if (treeNodeCondition.isLeaf()) {
+            return Lists.newArrayList(treeNodeCondition.getResults()).get(0).getValue(context);
+        }
+        final LinkedHashMap<TreeNodeCondition, Object> nodeConditions = treeNodeCondition.getChildrenNodeConditions();
+        if (CollUtil.isEmpty(nodeConditions)) {
+            throw new RuleExecuteException(String.format("{}不能叶子节点，也没有子节点", treeNodeCondition.getNodeCondition().getId()));
+        }
+        for (TreeNodeCondition condition : nodeConditions.keySet()) {
+            if (condition.getNodeCondition().evaluate(context)) {
+                return recursiveExecute(condition, context);
+            }
+        }
+        return RuleResultEnum.NULL;
     }
 
 
@@ -63,6 +112,7 @@ public class DecisionRuleSet extends AbstractRule {
         final Set<Element> collect = rules.stream().flatMap(rule -> rule.collectParameter().stream()).collect(Collectors.toSet());
         return Collections.unmodifiableSet(collect);
     }
+
     /**
      * 构建 决策表执行树
      */
@@ -112,4 +162,6 @@ public class DecisionRuleSet extends AbstractRule {
     public void setPolicy(RuleSetExecutePolicyEnum policy) {
         this.policy = policy;
     }
+
+
 }

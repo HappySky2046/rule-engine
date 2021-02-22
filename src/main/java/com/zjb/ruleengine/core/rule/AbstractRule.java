@@ -46,7 +46,6 @@ public abstract class AbstractRule implements Execute, Weight, Collectors, Seria
     public AbstractRule(String id) {
         Validate.notBlank(id, "id不能为空");
         this.id = id;
-        this.build();
     }
 
 
