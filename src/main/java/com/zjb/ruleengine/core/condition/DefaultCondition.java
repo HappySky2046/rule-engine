@@ -43,6 +43,7 @@ public class DefaultCondition extends AbstractCondition {
         Validate.notNull(leftValue);
         Validate.notNull(rightValue);
         Validate.notNull(symbol);
+        //todo 左右值类型匹配校验
         this.leftValue = leftValue;
         this.rightValue = rightValue;
         this.symbol = symbol;
