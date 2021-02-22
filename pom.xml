@@ -61,44 +61,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.10.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>2.10.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.10.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-            <version>2.10.3</version>
-            <scope>compile</scope>
+<!--            <version>2.12.0</version>-->
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>nexus</name>
-            <url>http://47.92.98.61:8081/repository/maven-snapshots/</url>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <!-- 发布到 快照版本的仓库，即 测试版本仓库 -->
-        <snapshotRepository>
-            <id>nexus</id>
-            <url>http://47.92.98.61:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <!-- 发布到 发行版本的仓库中，也可以发布到3rd party 仓库 -->
-    </distributionManagement>
 
 
     <build>

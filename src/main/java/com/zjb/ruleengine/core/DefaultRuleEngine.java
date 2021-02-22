@@ -2,9 +2,8 @@ package com.zjb.ruleengine.core;
 
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
-import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.function.Function;
-import com.zjb.ruleengine.core.function.FunctionBean;
+import com.zjb.ruleengine.core.rule.AbstractRule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,7 +47,7 @@ public class DefaultRuleEngine implements RuleEngine, Serializable {
         functionHolder.registerFunction(function);
     }
 
-    public FunctionBean getFunctionBean(String functionName) {
+    public Function getFunctionBean(String functionName) {
         return functionHolder.getFunction(functionName);
     }
 

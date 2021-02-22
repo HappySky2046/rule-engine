@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.config.FunctionHolder;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
-import com.zjb.ruleengine.core.function.FunctionBean;
+import com.zjb.ruleengine.core.function.Function;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,7 +44,7 @@ public class Variable extends Value {
             log.error(message);
             throw new RuleEngineException(message);
         }
-        final FunctionBean functionBean = functionHolder.getFunction(function.getFunctionName());
+        final Function functionBean = functionHolder.getFunction(function.getFunctionName());
         final Class functionParamType = functionBean.getFunctionParamType();
         if (!function.getParameter().getClass().isAssignableFrom(functionParamType)) {
             final String message = StrFormatter.format("function:{} parameter {} not cast to {}", function.getFunctionName(), function.getParameter().getClass().getSimpleName(), functionParamType);
@@ -113,8 +113,8 @@ public class Variable extends Value {
     @Override
     public Object getValue(Context context) {
         final Object parameter = function.getParameter();
-        final FunctionBean function = functionHolder.getFunction(this.function.getFunctionName());
-        return function.getFunction().execute(context, parameter);
+        final Function function = functionHolder.getFunction(this.function.getFunctionName());
+        return function.execute(context, parameter);
     }
 
     /**
