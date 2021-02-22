@@ -24,21 +24,30 @@ public enum DataTypeEnum implements Serializable {
     }
 
     public static DataTypeEnum getDataTypeByClass(Class clazz) {
-        if (Number.class.isAssignableFrom(clazz)) {
+        if (NUMBER.clazz.isAssignableFrom(clazz)) {
             return NUMBER;
         }
         if (STRING.clazz.isAssignableFrom(clazz)) {
             return STRING;
         }
         if (COLLECTION.clazz.isAssignableFrom(clazz)) {
-            return STRING;
+            return COLLECTION;
         }
         if (BOOLEAN.clazz.isAssignableFrom(clazz)) {
-            return STRING;
+            return BOOLEAN;
         }
         if (JSONOBJECT.clazz.isAssignableFrom(clazz)) {
-            return STRING;
+            return JSONOBJECT;
         }
         return POJO;
     }
+
+    public static DataTypeEnum getDataTypeByName(String name) {
+        final DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(name);
+        if (dataTypeEnum != null) {
+            return dataTypeEnum;
+        }
+        return POJO;
+    }
+
 }
