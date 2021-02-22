@@ -4,6 +4,7 @@ import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
+import com.zjb.ruleengine.core.exception.RuleCompileException;
 import com.zjb.ruleengine.core.exception.RuleEngineException;
 import com.zjb.ruleengine.core.exception.RuleValidationException;
 import org.apache.logging.log4j.LogManager;
@@ -26,11 +27,11 @@ public abstract class Function<T, R> implements Serializable {
     private static final Logger log = LogManager.getLogger();
     private static final long serialVersionUID = -6994254036155752759L;
 
-    private Class parameterClass;
-    private Class resultClass;
+    //private Class parameterClass;
+    //private Class resultClass;
 
     public Function() {
-        parseExecuteType();
+        //parseExecuteType();
     }
 
     /**
@@ -49,21 +50,48 @@ public abstract class Function<T, R> implements Serializable {
             return false;
         }
         Function function = (Function) other;
-        if (parameterClass != function.parameterClass) {
+        if (getParameterClass() != function.getParameterClass()) {
             return false;
         }
-        if (resultClass != function.resultClass) {
+        if (getResultClass() != function.getResultClass()) {
             return false;
         }
         return true;
     }
 
     public Class getResultClass() {
-        return resultClass;
+
+        final Type[] actualTypeArguments = getType();
+        if (actualTypeArguments[1] instanceof Class) {
+            return (Class) actualTypeArguments[1];
+        }
+        return Object.class;
+
     }
 
+    private Type[] getType() {
+        final Class<? extends Function> functionClass = this.getClass();
+        if (functionClass.isAnonymousClass()) {
+            throw new RuleCompileException("匿名内部部需要重写当前方法");
+        }
+        Type type = functionClass.getGenericSuperclass();
+        while (!(type instanceof ParameterizedType) && ((ParameterizedType) type).getRawType() != Function.class) {
+            throw new RuleEngineException("not found function's generics");
+        }
+
+        final ParameterizedType parameterizedType = (ParameterizedType) type;
+
+        return parameterizedType.getActualTypeArguments();
+    }
+
+
     public Class getParameterClass() {
-        return parameterClass;
+        final Type[] actualTypeArguments = getType();
+        if (actualTypeArguments[0] instanceof Class) {
+            return (Class) actualTypeArguments[0];
+        }
+        return Object.class;
+
     }
 
     public String getExecuteMethodName() {
@@ -75,34 +103,35 @@ public abstract class Function<T, R> implements Serializable {
         return Objects.hash(super.hashCode());
     }
 
-    protected void parseExecuteType() {
-        final Class<? extends Function> functionClass = this.getClass();
-        Type type = functionClass.getGenericSuperclass();
-        while (!(type instanceof ParameterizedType) && ((ParameterizedType) type).getRawType() != Function.class) {
-            throw new RuleEngineException("not found function's generics");
-        }
-
-        final ParameterizedType parameterizedType = (ParameterizedType) type;
-
-        final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-        if (actualTypeArguments[0] instanceof Class) {
-            parameterClass = (Class) actualTypeArguments[0];
-        } else {
-            parameterClass = Object.class;
-        }
-        if (actualTypeArguments[1] instanceof Class) {
-            resultClass = (Class) actualTypeArguments[1];
-        } else {
-            resultClass = Object.class;
-        }
-
-    }
+    //protected void parseExecuteType() {
+    //    final Class<? extends Function> functionClass = this.getClass();
+    //    Type type = functionClass.getGenericSuperclass();
+    //    while (!(type instanceof ParameterizedType) && ((ParameterizedType) type).getRawType() != Function.class) {
+    //        throw new RuleEngineException("not found function's generics");
+    //    }
+    //
+    //    final ParameterizedType parameterizedType = (ParameterizedType) type;
+    //
+    //    final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+    //    if (actualTypeArguments[0] instanceof Class) {
+    //        parameterClass = (Class) actualTypeArguments[0];
+    //    } else {
+    //        parameterClass = Object.class;
+    //    }
+    //    if (actualTypeArguments[1] instanceof Class) {
+    //        resultClass = (Class) actualTypeArguments[1];
+    //    } else {
+    //        resultClass = Object.class;
+    //    }
+    //
+    //}
 
 
     /**
      * @return
      */
     public List<Parameter> getParamters() {
+        final Class parameterClass = getParameterClass();
         final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(parameterClass);
 
         if (dataTypeByClass != DataTypeEnum.POJO && dataTypeByClass != DataTypeEnum.JSONOBJECT) {

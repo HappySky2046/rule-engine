@@ -1,6 +1,6 @@
 package com.zjb.ruleengine;
 
-import com.zjb.ruleengine.core.function.HttpObjectFunction;
+import com.zjb.ruleengine.core.function.HttpFunction;
 import org.junit.Test;
 
 /**
@@ -15,7 +15,7 @@ public class HttpObjectFunctionTest {
     }
 
 
-    public static class DemoHttpFunticonTest extends HttpObjectFunction<String, String> {
+    public static class DemoHttpFunticonTest extends HttpFunction<String, String> {
 
         @Override
         protected String getUrl() {
