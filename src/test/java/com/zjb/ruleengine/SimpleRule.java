@@ -9,6 +9,7 @@ import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.Rule;
 import com.zjb.ruleengine.core.value.Constant;
 import com.zjb.ruleengine.core.value.Element;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -22,6 +23,7 @@ public class SimpleRule extends BaseTest {
 
     /**
      * 规则测试类
+     * 简单的规则
      */
     @Test
     public void test() throws Exception {
@@ -30,7 +32,7 @@ public class SimpleRule extends BaseTest {
         final BaseContextImpl context = new BaseContextImpl();
         context.put(element_code, 20);
         final Object simple_rule1 = ruleEngine.execute(rule_id, context);
-        System.out.println(simple_rule1);
+        Assert.assertTrue((Boolean) simple_rule1);
 
     }
 
