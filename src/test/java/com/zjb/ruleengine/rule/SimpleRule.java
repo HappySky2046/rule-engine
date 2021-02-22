@@ -10,7 +10,7 @@ import com.zjb.ruleengine.core.enums.RuleResultEnum;
 import com.zjb.ruleengine.core.enums.Symbol;
 import com.zjb.ruleengine.core.function.Function;
 import com.zjb.ruleengine.core.function.GetPropertyFunction;
-import com.zjb.ruleengine.core.function.HttpFunction;
+import com.zjb.ruleengine.core.function.HttpObjectFunction;
 import com.zjb.ruleengine.core.rule.AbstractRule;
 import com.zjb.ruleengine.core.rule.Rule;
 import com.zjb.ruleengine.core.value.Constant;
@@ -140,7 +140,7 @@ public class SimpleRule extends BaseTest {
      * "country": "CN"
      * }
      */
-    public static class PersonHttpFunction extends HttpFunction<String, Person> {
+    public static class PersonHttpFunction extends HttpObjectFunction<String, Person> {
         @Override
         protected String getUrl() {
             return "http://rap2api.taobao.org/app/mock/273721/example/1608461246900";

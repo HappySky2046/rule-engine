@@ -23,7 +23,7 @@ import static com.zjb.ruleengine.core.condition.evaluate.BooleanEvaluateStrategy
  * @date 2020-09-15 11:30:29
  */
 
-public abstract class Value implements Serializable, Weight, Collectors, AutoExecute {
+public abstract class Value implements Serializable, Weight, Collectors {
     private static final Logger log = LogManager.getLogger();
     private static final long serialVersionUID = 8892490391433239102L;
     private String id;
