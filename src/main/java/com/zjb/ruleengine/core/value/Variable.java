@@ -61,18 +61,22 @@ public class Variable extends Value {
     @Override
     public Object getValue(Context context) {
         final Map<String, ? extends Value> varParameter = this.function.getParameter();
+        final Function function = this.function.getFunctionHolder().getFunction(this.function.getFunctionName());
+        //只运行当前函数需要的参数，防止循环依赖
+        final Set<String> funParamNames = (Set<String>) function.getParamters().stream().map(par -> ((Function.Parameter) par).getName()).collect(Collectors.toSet());
         final HashMap<String, Object> functionParameter = Maps.newHashMap();
         if (CollUtil.isNotEmpty(varParameter)) {
             for (Map.Entry<String, ? extends Value> entry : varParameter.entrySet()) {
-                final Object value = entry.getValue().getValue(context);
-                functionParameter.put(entry.getKey(), value);
+                if (funParamNames.contains(entry.getKey())) {
+                    final Object value = entry.getValue().getValue(context);
+                    functionParameter.put(entry.getKey(), value);
+                }
             }
         }
 
-        final Function function = this.function.getFunctionHolder().getFunction(this.function.getFunctionName());
+        final Parameter parameter = this.function.getMethodParameter();
+        final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(function.getParameterClass());
         try {
-            final Parameter parameter = this.function.getMethodParameter();
-            final DataTypeEnum dataTypeByClass = DataTypeEnum.getDataTypeByClass(function.getParameterClass());
             Object executeParam;
             if (dataTypeByClass == DataTypeEnum.POJO) {
                 executeParam = function.getParameterClass().newInstance();
@@ -95,6 +99,7 @@ public class Variable extends Value {
             throw new RuleExecuteException(e);
         }
     }
+
     public Object dataConversion(Object value, DataTypeEnum dataType) {
         if (Objects.isNull(value) || dataType == null) {
             return null;
