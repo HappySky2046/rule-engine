@@ -60,7 +60,7 @@ public class FunctionHolder {
         if (Objects.isNull(function)) {
             throw new RuleLoadException("function is not null");
         }
-        return function.getClass().getSimpleName();
+        return function.getName();
     }
     //
     //private FunctionBean parseExecuteType(Function function) {

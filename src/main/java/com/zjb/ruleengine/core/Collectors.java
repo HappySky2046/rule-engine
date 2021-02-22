@@ -12,6 +12,7 @@ public interface Collectors {
 
     /**
      * collect (e.g rule,ruleSet,condition,variable)parameter
+     *
      * @return
      */
     Collection<Element> collectParameter();

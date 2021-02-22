@@ -54,7 +54,7 @@ public abstract class HttpFunction<T, R> extends Function<T, R> {
             } catch (Exception e) {
                 log.error("{}", e);
             }
-        }else {
+        } else {
             try {
                 return (R) new ObjectMapper().readValue(result, resultType);
             } catch (Exception e) {

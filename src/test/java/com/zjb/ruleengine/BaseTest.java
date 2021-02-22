@@ -13,7 +13,7 @@ import java.util.Set;
  * @date 2020-12-07 14:30:00
  */
 public class BaseTest {
-    public FunctionHolder registerFunction() throws Exception{
+    public FunctionHolder registerFunction() throws Exception {
         FunctionHolder holder = new FunctionHolder();
         final Set<Class<?>> classes = ClassUtil.scanPackage("com.zjb.ruleengine", clazz -> Function.class.isAssignableFrom(clazz) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()));
         for (Class<?> aClass : classes) {
@@ -23,7 +23,7 @@ public class BaseTest {
         return holder;
     }
 
-    public void registerFunction(DefaultRuleEngine ruleEngine) throws Exception{
+    public void registerFunction(DefaultRuleEngine ruleEngine) throws Exception {
         final Set<Class<?>> classes = ClassUtil.scanPackage("com.zjb.ruleengine", clazz -> Function.class.isAssignableFrom(clazz) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers()));
         for (Class<?> aClass : classes) {
             ruleEngine.registerFunction((Function) aClass.newInstance());

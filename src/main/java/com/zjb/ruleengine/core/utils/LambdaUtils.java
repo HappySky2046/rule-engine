@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
  */
 public class LambdaUtils {
     private static final Logger log = LogManager.getLogger();
+
     /**
      * 根据方法引用,获取引用的方法名称,去get/is,首字母小写
      *

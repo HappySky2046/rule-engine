@@ -31,9 +31,8 @@ public class DecisionRuleSet extends RuleSet {
     private TreeNodeCondition rootCondition;
 
 
-
-    public DecisionRuleSet(String id,List<? extends AbstractRule> rules) {
-        super(id,rules);
+    public DecisionRuleSet(String id, List<? extends AbstractRule> rules) {
+        super(id, rules);
     }
 
     @Override

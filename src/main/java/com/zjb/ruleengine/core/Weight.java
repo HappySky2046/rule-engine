@@ -7,6 +7,7 @@ package com.zjb.ruleengine.core;
 public interface Weight {
     /**
      * 获取权重
+     *
      * @return
      */
     int getWeight();

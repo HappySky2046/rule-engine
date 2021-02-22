@@ -43,7 +43,7 @@ public class RuleSetTest {
         //不在饭点吃什么
         final ActionRule unFood = new ActionRule("unFood", new Constant(DataTypeEnum.STRING, this.unFood));
         //加载规则
-        RuleSet ruleSet = new RuleSet(rule_id, Lists.newArrayList(breakfast, lunch, dinner,unFood));
+        RuleSet ruleSet = new RuleSet(rule_id, Lists.newArrayList(breakfast, lunch, dinner, unFood));
         ruleEngine.addRule(ruleSet);
 
         //需要传参数
@@ -123,7 +123,6 @@ public class RuleSetTest {
 
         return new Rule("dinner", conditionGroup, new Constant(DataTypeEnum.STRING, dinner));
     }
-
 
 
 }

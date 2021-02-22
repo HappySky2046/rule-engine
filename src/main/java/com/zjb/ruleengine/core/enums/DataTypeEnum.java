@@ -11,15 +11,18 @@ import java.util.Map;
  * @date 2020-09-15 11:30:29
  */
 public enum DataTypeEnum implements Serializable {
-    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class),;
+    NUMBER(Number.class), STRING(String.class), COLLECTION(Collection.class), BOOLEAN(Boolean.class), OBJECT(Object.class),
+    ;
 
-    private static Map<String, DataTypeEnum> dataTypeMap = new HashMap<>();
+    //private static Map<String, DataTypeEnum> dataTypeMap = new HashMap<>();
+    private static Map<Class, DataTypeEnum> map = new HashMap<>();
     private Class clazz;
 
     static {
         DataTypeEnum[] constants = DataTypeEnum.class.getEnumConstants();
         for (DataTypeEnum constant : constants) {
-            dataTypeMap.put(constant.name(), constant);
+            //dataTypeMap.put(constant.name(), constant);
+            map.put(constant.clazz, constant);
         }
     }
 
@@ -31,10 +34,11 @@ public enum DataTypeEnum implements Serializable {
         return clazz;
     }
 
-    public static DataTypeEnum getDataTypeByName(String name) {
+    public static DataTypeEnum getDataTypeByClass(Class name) {
 
-        return dataTypeMap.get(name);
+        return map.get(name);
     }
+
 
 
 }

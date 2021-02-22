@@ -27,7 +27,7 @@ public class DecisionRuleSetTest {
     public void testBuild() {
         final ArrayList<AbstractRule> rules = getRules();
 
-        DecisionRuleSet ruleSet = new DecisionRuleSet("",rules);
+        DecisionRuleSet ruleSet = new DecisionRuleSet("", rules);
         ruleSet.build();
         System.out.println();
     }
@@ -35,12 +35,15 @@ public class DecisionRuleSetTest {
     private Element getInput1() {
         return new Element(DataTypeEnum.NUMBER, "input1");
     }
+
     private Element getInput2() {
         return new Element(DataTypeEnum.NUMBER, "input2");
     }
+
     private Element getInput3() {
         return new Element(DataTypeEnum.NUMBER, "input3");
     }
+
     private Value getResult(String result) {
         return new Constant(DataTypeEnum.STRING, result);
     }

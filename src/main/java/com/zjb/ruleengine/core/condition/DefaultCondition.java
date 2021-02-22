@@ -49,7 +49,7 @@ public class DefaultCondition extends AbstractCondition {
     }
 
     public DefaultCondition(Value leftValue, Symbol symbol, Value rightValue) {
-        this("",leftValue, symbol, rightValue);
+        this("", leftValue, symbol, rightValue);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DefaultCondition extends AbstractCondition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(leftValue,symbol,rightValue);
+        return Objects.hash(leftValue, symbol, rightValue);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DefaultCondition extends AbstractCondition {
         Object leftValue = this.leftValue.getValue(context);
         Object rightValue = this.rightValue.getValue(context);
         final boolean result = evaluateMap.get(symbol.getType()).evaluate(leftValue, rightValue, symbol);
-        log.debug("条件{}--【 {} {} {} 】执行，执行结果{}",getId(),leftValue,symbol.getSymbol(),rightValue,result);
+        log.debug("条件{}--【 {} {} {} 】执行，执行结果{}", getId(), leftValue, symbol.getSymbol(), rightValue, result);
         return result;
     }
 
@@ -121,7 +121,7 @@ public class DefaultCondition extends AbstractCondition {
 
     @Override
     public String toString() {
-        return StrFormatter.format("{}[{}{}{}]",this.getId(),leftValue.getId(),symbol.getSymbol(),rightValue.getId());
+        return StrFormatter.format("{}[{}{}{}]", this.getId(), leftValue.getId(), symbol.getSymbol(), rightValue.getId());
     }
 
     @Override

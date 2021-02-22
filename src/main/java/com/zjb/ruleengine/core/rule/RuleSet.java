@@ -32,8 +32,8 @@ public class RuleSet extends AbstractRule {
 
     private RuleSetExecutePolicyEnum policy = RuleSetExecutePolicyEnum.ONE;
 
-    public RuleSet(String id,List<? extends AbstractRule> rules) {
-        super(id,null, null);
+    public RuleSet(String id, List<? extends AbstractRule> rules) {
+        super(id, null, null);
         Validate.notEmpty(rules);
         this.rules = Lists.newArrayList(rules);
         this.buildRules = rules.stream().sorted(Comparator.comparing(AbstractRule::getWeight)).collect(Collectors.toList());

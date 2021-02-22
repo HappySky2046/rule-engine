@@ -14,7 +14,7 @@ public class RuleValidationException extends RuleEngineException {
         super(message, cause);
     }
 
-    public RuleValidationException(String messgae){
+    public RuleValidationException(String messgae) {
         super(messgae);
     }
 }

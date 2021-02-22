@@ -34,13 +34,13 @@ public class RuleOnConditionset extends BaseTest {
     /**
      * 规则测试类
      * 简单的规则（年龄>=18 && country=中国）|| （年龄>=20 && country=日本 && sex=男）就是成年人
-     *      第1组条件：
-     *          条件1:（age>=18）：左值age为元素{@link Element}，即入参, 右值为常量{@link Constant}等于18
-     *          条件2:（country>=中国）：左值country为元素{@link Element}，即入参, 右值为常量{@link Constant}等于中国
-     *      第2组条件：
-     *          条件1:（age>=20）：左值age为元素{@link Element}，即入参, 右值为常量{@link Constant}等于20
-     *          条件2:（country>=日本）：左值country为元素{@link Element}，即入参, 右值为常量{@link Constant}等于日本
-     *          条件3:（sex>=男）：左值sex为元素{@link Element}，即入参, 右值为常量{@link Constant}等于男
+     * 第1组条件：
+     * 条件1:（age>=18）：左值age为元素{@link Element}，即入参, 右值为常量{@link Constant}等于18
+     * 条件2:（country>=中国）：左值country为元素{@link Element}，即入参, 右值为常量{@link Constant}等于中国
+     * 第2组条件：
+     * 条件1:（age>=20）：左值age为元素{@link Element}，即入参, 右值为常量{@link Constant}等于20
+     * 条件2:（country>=日本）：左值country为元素{@link Element}，即入参, 右值为常量{@link Constant}等于日本
+     * 条件3:（sex>=男）：左值sex为元素{@link Element}，即入参, 右值为常量{@link Constant}等于男
      * 满足任意一组条件，结果为true
      */
     @Test
@@ -55,13 +55,13 @@ public class RuleOnConditionset extends BaseTest {
         final BaseContextImpl context = new BaseContextImpl();
         context.put(element_code, 20);
         context.put(element_code_country, "中国");
-         Object result = ruleEngine.execute(rule_id, context);
+        Object result = ruleEngine.execute(rule_id, context);
         Assert.assertTrue((Boolean) result);
         //日本人20岁不一定是成年人
         final BaseContextImpl contextJp = new BaseContextImpl();
         contextJp.put(element_code, 20);
         contextJp.put(element_code_country, "日本1");
-         result = ruleEngine.execute(rule_id, contextJp);
+        result = ruleEngine.execute(rule_id, contextJp);
         Assert.assertEquals(result, RuleResultEnum.NULL);
 
         //日本男人20岁才是成年人
@@ -91,9 +91,6 @@ public class RuleOnConditionset extends BaseTest {
 
         return new Rule(rule_id, conditionSet, new Constant(DataTypeEnum.BOOLEAN, true));
     }
-
-
-
 
 
 }

@@ -33,7 +33,7 @@ public class Constant extends Value {
         super();
         Validate.notNull(dataType);
         Validate.notNull(value);
-        Validate.isAssignableFrom(dataType.getClazz(), value.getClass(),value.getClass()+" not cast to " + dataType.getClazz());
+        Validate.isAssignableFrom(dataType.getClazz(), value.getClass(), value.getClass() + " not cast to " + dataType.getClazz());
         this.value = value;
         this.dataType = dataType;
     }
@@ -67,7 +67,7 @@ public class Constant extends Value {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.dataType,this.value);
+        return Objects.hash(this.dataType, this.value);
     }
 
     @Override

@@ -23,12 +23,14 @@ public enum RuleTypeEnum implements Serializable {
     }
 
     private static Map<Integer, RuleTypeEnum> map = new HashMap<>();
+
     static {
         RuleTypeEnum[] enumConstants = RuleTypeEnum.class.getEnumConstants();
         for (RuleTypeEnum enumConstant : enumConstants) {
             map.put(enumConstant.status, enumConstant);
         }
     }
+
     RuleTypeEnum(Integer status) {
         this.status = status;
     }

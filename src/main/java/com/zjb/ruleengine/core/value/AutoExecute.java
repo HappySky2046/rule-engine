@@ -17,7 +17,7 @@ import com.zjb.ruleengine.core.function.GetPropertyFunction;
  * SubValue subValue=new SubValue();
  * Value value=new Variable();
  * subValue.setFieldValue(value)
- *
+ * <p>
  * 则  subValue.getFieldValue()==value.getValue() //获取的值是value.getValue()
  *
  *

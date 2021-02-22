@@ -18,18 +18,22 @@ public class BaseContextImpl implements Context, Serializable {
     public <T> T put(final String name, final T object) {
         return (T) itemMap.put(name, object);
     }
+
     @Override
     public <T> T remove(final String name) {
         return (T) itemMap.remove(name);
     }
+
     @Override
     public <T> T get(final String name) {
         return (T) itemMap.get(name);
     }
+
     @Override
     public void putAll(Map<String, Object> map) {
         this.itemMap.putAll(map);
     }
+
     @Override
     public <T> T get(final String name, final T defaultValue) {
         T result = (T) itemMap.get(name);
@@ -38,19 +42,23 @@ public class BaseContextImpl implements Context, Serializable {
         }
         return result;
     }
+
     @Override
     public boolean exist(String name) {
         return itemMap.containsKey(name);
     }
+
     @Override
     public boolean contain(String name) {
 
         return itemMap.containsKey(name);
     }
+
     @Override
     public void clear() {
         itemMap.clear();
     }
+
     @Override
     public Map<String, Object> getItemMap() {
         return itemMap;
@@ -60,6 +68,7 @@ public class BaseContextImpl implements Context, Serializable {
     public int size() {
         return itemMap.size();
     }
+
     @Override
     public boolean renameKey(String key, String newKey) {
         if (itemMap.containsKey(key)) {

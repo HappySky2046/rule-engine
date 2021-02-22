@@ -79,7 +79,7 @@ public class Element extends Value {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.code,this.dataType);
+        return Objects.hash(this.code, this.dataType);
     }
 
     public String getCode() {
@@ -88,7 +88,7 @@ public class Element extends Value {
 
     @Override
     public String toString() {
-        return this.dataType.getClazz().getSimpleName() +" : "+ this.code;
+        return this.dataType.getClazz().getSimpleName() + " : " + this.code;
     }
 
     public DataTypeEnum getDataType() {
