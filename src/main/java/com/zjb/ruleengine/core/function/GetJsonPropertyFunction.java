@@ -1,6 +1,9 @@
 package com.zjb.ruleengine.core.function;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -10,8 +13,12 @@ import org.apache.commons.lang3.Validate;
 public class GetJsonPropertyFunction extends Function<GetJsonPropertyFunction.FunctionParameter, Object> {
     @Override
     public Object execute(FunctionParameter param) {
-        return param.jsonNode.findValue(param.fieldName);
-
+        final String[] split = param.fieldName.split("\\.");
+        JsonNode jsonNode = param.jsonNode;
+        for (String name : split) {
+            jsonNode = jsonNode.get(name);
+        }
+        return jsonNode;
     }
 
     public static class FunctionParameter {
@@ -37,6 +44,7 @@ public class GetJsonPropertyFunction extends Function<GetJsonPropertyFunction.Fu
         }
 
     }
+
 
 
 }
