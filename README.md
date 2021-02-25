@@ -47,18 +47,18 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 
 >####执行过程
 
-![规则执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRule.png)
+![规则执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRule.jpg)
  
 ### 规则集：
 >规则的集合，加载规则集时，在不改变执行结果的情况下，默认会根据规则的权重进行优化排序，以提高执行效率，根据选择的执行策略，返回相对应的结果
 
-![规则集执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRuleSet.png)
+![规则集执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRuleSet.jpg)
 
 ### 决策表
 >可以理解为一种特别的规则集，其中的规则都拥有相似的条件，加载决策表时，会构建决策树以节省内存，运行期间根据策略运行不同的算法，以提高执行效率
 >#### 建树过程：
 
-![建树过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/buildtree.png)
+![建树过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/buildtree.jpg)
 
 >>1.逐行处理每一条规则，因为每条规则包含的条件列、结果列数量是一定的。因此当第一行数据插入后，树的层数已经确定。  
 >>2.每插入一条新的规则，匹配已有节点：  
@@ -68,7 +68,7 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 >>>	d.对于区间类条件，建树成本较高，例如条件1：值 > x，则需要遍历同一层所有>x的值节点，并且在多个条件节点后加入相同。(注:由于将成本开销控制在引擎建树阶段，依然可以保持引擎运行态的高效性。)  
 >#### 执行过程：
 
-![决策表执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runDecision.png)
+![决策表执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runDecision.jpg)
 
 >>
 >>对于决策树而言，存在单一匹配和完全匹配两种策略, 有着不同的执行过程。以单一匹配策略为例, 运行过程如下所示:
