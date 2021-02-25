@@ -4,7 +4,9 @@
  2. <font color=red >在依赖其它系统接口的时候，不再需要额外工作量，只需要注册接口，即可完成集成
  3. <font color=red >在保证运行结果正确的情况下，优化数据结构，减少内存开销，提升运行速度
 
+*试用链接：数据每天24点会重置* https://www.pincheche.online/rule-front/#/rule
 
+**[规则平台后台管理文档,主要负责持久化规则](https://github.com/zjb-it/rule-platform-server/blob/master/README.md)**
 
 ## 概念
 ### 基础概念
@@ -36,18 +38,28 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
  >3. 快速接入其它系统 ：可以直接注册接口封装为函数，0成本接入其它系统，不需要迁入其它系统的代码 
 
 ## 设计
-![在这里插入图片描述](https://img-blog.csdnimg.cn/img_convert/36491694c759bf1c560921e9d3292d4e.png#pic_center)
+![设计](https://github.com/zjb-it/rule-engine/blob/master/screenshot/design.jpg)
 
 规则引擎主要包含3种类型的规则及一个函数容器
 
-  ### 规则：
-  >主要包含条件及结果，条件可以是单个条件，条件组，或条件集，加载规则时，在不改变执行结果的情况下，默认会根据条件的权重进行优化排序，以提高执行效率，条件==true, 则返回结果
+### 规则：
+>主要包含条件及结果，条件可以是单个条件，条件组，或条件集，加载规则时，在不改变执行结果的情况下，默认会根据条件的权重进行优化排序，以提高执行效率，条件==true, 则返回结果
+
+>####执行过程
+
+![规则执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRule.png)
  
- ### 规则集：
- >规则的集合，加载规则集时，在不改变执行结果的情况下，默认会根据规则的权重进行优化排序，以提高执行效率，根据选择的执行策略，返回相对应的结果
+### 规则集：
+>规则的集合，加载规则集时，在不改变执行结果的情况下，默认会根据规则的权重进行优化排序，以提高执行效率，根据选择的执行策略，返回相对应的结果
+
+![规则集执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runRuleSet.png)
+
 ### 决策表
 >可以理解为一种特别的规则集，其中的规则都拥有相似的条件，加载决策表时，会构建决策树以节省内存，运行期间根据策略运行不同的算法，以提高执行效率
 >#### 建树过程：
+
+![建树过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/buildtree.png)
+
 >>1.逐行处理每一条规则，因为每条规则包含的条件列、结果列数量是一定的。因此当第一行数据插入后，树的层数已经确定。  
 >>2.每插入一条新的规则，匹配已有节点：  
 >>>a.没有匹配则新增节点  
@@ -55,6 +67,9 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 >>>c.对于空条件，创建“恒成立“节点  
 >>>	d.对于区间类条件，建树成本较高，例如条件1：值 > x，则需要遍历同一层所有>x的值节点，并且在多个条件节点后加入相同。(注:由于将成本开销控制在引擎建树阶段，依然可以保持引擎运行态的高效性。)  
 >#### 执行过程：
+
+![决策表执行过程](https://github.com/zjb-it/rule-engine/blob/master/screenshot/runDecision.png)
+
 >>
 >>对于决策树而言，存在单一匹配和完全匹配两种策略, 有着不同的执行过程。以单一匹配策略为例, 运行过程如下所示:
 >>单一匹配策略：  
@@ -70,4 +85,4 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 
 ## 样例
 
- [添加链接描述](https://11)
+[详见测试用例](https://github.com/zjb-it/rule-engine/tree/master/src/test/java/com/zjb/ruleengine)
