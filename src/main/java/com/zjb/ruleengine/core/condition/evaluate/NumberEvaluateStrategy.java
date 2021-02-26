@@ -30,6 +30,7 @@ public class NumberEvaluateStrategy implements Evaluate {
     @Override
     @SuppressWarnings("unchecked")
     public boolean evaluate(Object leftValue, Object rightValue, Symbol operatorType) {
+
         if (leftValue == null || rightValue == null) {
             return false;
         }
@@ -45,26 +46,9 @@ public class NumberEvaluateStrategy implements Evaluate {
             throw new RuleEngineException("右值必须是number");
         }
 
-        String leftTempString = leftValue + "";
-        String rightTempString = rightValue + "";
-        if (leftTempString.equals(BLANK_STRING) || rightTempString.equals(BLANK_STRING) ||
-                StringUtils.isBlank(leftTempString) || StringUtils.isBlank(rightTempString)) {
-            return false;
-        }
-        Number leftNumber = NumberUtils.createNumber(leftTempString);
-        Number rightNumber = NumberUtils.createNumber(rightTempString);
-        if (!(leftNumber instanceof Comparable) || !(rightNumber instanceof Comparable)) {
-            throw new IllegalArgumentException("数据类型异常");
-        }
-        Comparable left;
-        Comparable right;
-        if (leftTempString.contains(StrUtil.DOT) || rightTempString.contains(StrUtil.DOT)) {
-            left = new BigDecimal(leftTempString + "");
-            right = new BigDecimal(rightTempString + "");
-        } else {
-            left = new BigInteger(leftTempString + "");
-            right = new BigInteger(rightTempString + "");
-        }
+
+        BigDecimal left = new BigDecimal(String.valueOf(leftValue));
+        BigDecimal right = new BigDecimal(String.valueOf(rightValue));
         int compare = left.compareTo(right);
         switch (operatorType) {
             case number_eq:
