@@ -58,7 +58,7 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
       <td rowspan="9">String 字符串</td>
       <td>=</td>
       <td>等于</td>
-      <td rowspan="9">String 字符串</td>
+      <td rowspan="8">String 字符串</td>
    </tr>
    <tr>      
       <td>!=</td>
