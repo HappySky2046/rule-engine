@@ -29,7 +29,7 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
  	b. 按顺序运行所有规则，返回所有触发规则 的执行结果的集合  
  	c. 随机运行所有规则，触发一个规则即返回  
 10.  决策树：主要用来解决具有大量重复条件的规则集，会构建为一棵决策树，达到节省内存，提升运行速度，可以用表格进行编辑，支持让用户一键导入， 
- 
+
 
 ## 特点
 
@@ -41,6 +41,145 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 ![设计](https://github.com/zjb-it/rule-engine/blob/master/screenshot/design.jpg)
 
 规则引擎主要包含3种类型的规则及一个函数容器
+
+### 支持的计算符号
+
+<table>
+<thead>
+   <tr>
+      <th>左值类型</th>
+      <th>运算符</th>
+      <th>中文解释</th>
+      <th>右值类型</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+      <td rowspan="9">String 字符串</td>
+      <td>=</td>
+      <td>等于</td>
+      <td rowspan="9">String 字符串</td>
+   </tr>
+   <tr>      
+      <td>!=</td>
+      <td>不等于</td>      
+   </tr>
+   <tr>      
+      <td>indexOf</td>
+      <td>A包含子串B</td>      
+   </tr>
+   <tr>      
+      <td>notIndexOf</td>
+      <td>A不包含子串B</td>      
+   </tr>
+   <tr>      
+      <td>startWith</td>
+      <td>A以B开头</td>      
+   </tr>
+   <tr>      
+      <td>notStartWith</td>
+      <td>A不以B开头</td>      
+   </tr>
+   <tr>      
+      <td>endWith</td>
+      <td>A以B结尾</td>      
+   </tr>
+   <tr>      
+      <td>notEndWith</td>
+      <td>A不以B结尾</td>      
+   </tr>
+   <tr>      
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td rowspan="7">Number 数值类型</td>
+      <td>=</td>
+      <td>等于</td>
+      <td rowspan="6">Number 数值类型</td>
+   </tr>
+   <tr>      
+      <td>!=</td>
+      <td>不等于</td>      
+   </tr>
+   <tr>      
+      <td>></td>
+      <td>大于</td>      
+   </tr>
+   <tr>      
+      <td>>=</td>
+      <td>大于等于</td>      
+   </tr>
+   <tr>      
+      <td><</td>
+      <td>小于</td>      
+   </tr>
+   <tr>      
+      <td><=</td>
+      <td>小于等于</td>      
+   </tr>
+   <tr>      
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td rowspan="3">Boolean 布尔类型</td>
+      <td>=</td>
+      <td>等于</td>
+      <td rowspan="2">Boolean 布尔类型</td>
+   </tr>
+   <tr>      
+      <td>!=</td>
+      <td>不等于</td>      
+   </tr>
+   <tr>      
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td rowspan="10">Collection 集合</td>
+      <td rowspan="4">contain</td>
+      <td rowspan="4">A集合包含B</td>
+      <td>字符串</td>
+   </tr>
+   <tr>
+      <td>数值</td>
+   </tr>
+   <tr>
+      <td>布尔</td>
+   </tr>
+   <tr>
+      <td>集合</td>
+   </tr>
+   <tr>      
+      <td rowspan="4">notContain</td>
+      <td rowspan="4">A集合不包含B</td>
+      <td>字符串</td>
+   </tr>
+   <tr>
+      <td>数值</td>
+   </tr>
+   <tr>    
+      <td>布尔</td>
+   </tr>
+   <tr>    
+       <td>集合</td>
+   </tr>
+   <tr>      
+      <td> =</td>
+      <td>A集合等于B集合</td>
+      <td>集合</td>
+   </tr>
+   <tr>      
+      <td>in</td>
+      <td>A集合是B集合的子集</td>
+      <td>集合</td>
+   </tr>   
+   </tbody>
+</table>
 
 ### 规则：
 >主要包含条件及结果，条件可以是单个条件，条件组，或条件集，加载规则时，在不改变执行结果的情况下，默认会根据条件的权重进行优化排序，以提高执行效率，条件==true, 则返回结果
@@ -86,3 +225,193 @@ c. 参数可以由变量，元素，固定值，（用户也可以继承Value类
 ## 样例
 
 [详见测试用例](https://github.com/zjb-it/rule-engine/tree/master/src/test/java/com/zjb/ruleengine)
+
+
+
+
+<table>
+<thead>
+   <tr>
+      <th>左值类型</th>
+      <th>运算符</th>
+      <th>中文解释</th>
+      <th>右值类型</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+      <td rowspan="3">String 字符串</td>
+      <td>=</td>
+      <td>等于</td>
+      <td>String 字符串</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>!=</td>
+      <td>不等于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>indexOf</td>
+      <td>A包含子串B</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>notIndexOf</td>
+      <td>A不包含子串B</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>startWith</td>
+      <td>A以B开头</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>notStartWith</td>
+      <td>A不以B开头</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>endWith</td>
+      <td>A以B结尾</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>notEndWith</td>
+      <td>A不以B结尾</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td>Number 数值类型</td>
+      <td>=</td>
+      <td>等于</td>
+      <td>Number 数值类型</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>!=</td>
+      <td>不等于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>></td>
+      <td>大于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>>=</td>
+      <td>大于等于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td><</td>
+      <td>小于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td><=</td>
+      <td>小于等于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td>Boolean 布尔类型</td>
+      <td>=</td>
+      <td>等于</td>
+      <td>Boolean 布尔类型</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>!=</td>
+      <td>不等于</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>in</td>
+      <td>A串在B集合中</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td>Collection 集合</td>
+      <td>contain</td>
+      <td>A集合包含B</td>
+      <td>字符串</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>数值</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>布尔</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>notContain</td>
+      <td>A集合不包含B</td>
+      <td>字符串</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>数值</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>布尔</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td> =</td>
+      <td>A集合等于B集合</td>
+      <td>集合</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td>in</td>
+      <td>A集合是B集合的子集</td>
+      <td>集合</td>
+   </tr>   
+   </tbody>
+</table>
