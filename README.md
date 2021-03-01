@@ -1,12 +1,17 @@
 # 规则引擎
-<font color=red>为什么要开发：</font>
- 1. <font color=red>低代码的，可视化的规则配置平台
- 2. <font color=red >在依赖其它系统接口的时候，不再需要额外工作量，只需要注册接口，即可完成集成
- 3. <font color=red >在保证运行结果正确的情况下，优化数据结构，减少内存开销，提升运行速度
+
+开发规则平台的意义：
+>1. 低代码的，可视化的规则配置平台  
+>2. 快速集成:在依赖其它系统接口的时候，不再需要额外工作量，只需要注册接口，即可完成集成  
+>3. 在保证运行结果正确的情况下，优化数据结构，减少内存开销，提升运行速度  
 
 *试用链接：数据每天24点会重置* https://www.pincheche.online/rule-front/#/rule
 
+**[规则引擎文档](https://github.com/zjb-it/rule-engine/blob/master/README.md)**
+
 **[规则平台后台管理文档,主要负责持久化规则](https://github.com/zjb-it/rule-platform-server/blob/master/README.md)**
+
+**[规则平台前端文档](https://github.com/zjb-it/rule-platform-front/blob/master/README.md)**
 
 ## 概念
 ### 基础概念
