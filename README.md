@@ -13,6 +13,8 @@
 
 **[规则平台前端文档](https://github.com/zjb-it/rule-platform-front/blob/master/README.md)**
 
+**[更多开源软件 https://www.pincheche.online/](https://www.pincheche.online/)**
+
 ## 概念
 ### 基础概念
 1. 固定值：包括NUMBER, STRING, COLLECTION,
