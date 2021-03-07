@@ -1,6 +1,8 @@
 package com.zjb.ruleengine.core.value;
 
 import cn.hutool.core.text.StrFormatter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.sun.javafx.binding.StringConstant;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
 import org.apache.commons.lang3.Validate;
@@ -9,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -90,4 +93,35 @@ public class Constant extends Value {
         return value;
     }
 
+    public static Constant stringValue(String value) {
+        return new Constant(DataTypeEnum.STRING, value);
+    }
+
+    public static Constant booleanValue(Boolean value) {
+        return new Constant(DataTypeEnum.BOOLEAN, value);
+    }
+
+    public static Constant numberValue(Boolean value) {
+        return new Constant(DataTypeEnum.NUMBER, value);
+    }
+
+    public static Constant collectionValue(Collection value) {
+        return new Constant(DataTypeEnum.COLLECTION, value);
+    }
+
+    public static Constant pojoValue(Object value) {
+        return new Constant(DataTypeEnum.POJO, value);
+    }
+
+    public static Constant jsonObjectValue(JsonNode value) {
+        return new Constant(DataTypeEnum.JSONOBJECT, value);
+    }
+
+    public static Constant objectValue(Object value) {
+        return new Constant(DataTypeEnum.OBJECT, value);
+    }
+
+    public static Constant mapValue(Map value) {
+        return new Constant(DataTypeEnum.MAP, value);
+    }
 }

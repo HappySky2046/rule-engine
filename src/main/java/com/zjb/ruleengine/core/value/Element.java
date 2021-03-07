@@ -1,5 +1,6 @@
 package com.zjb.ruleengine.core.value;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Sets;
 import com.zjb.ruleengine.core.Context;
 import com.zjb.ruleengine.core.enums.DataTypeEnum;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,7 +37,6 @@ public class Element extends Value {
         this.dataType = dataType;
         this.code = code;
     }
-
 
 
     @Override
@@ -92,12 +93,43 @@ public class Element extends Value {
     }
 
 
-
     public void setDataType(DataTypeEnum dataType) {
         this.dataType = dataType;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public static Element stringValue(String code) {
+        return new Element(DataTypeEnum.STRING, code);
+    }
+
+    public static Element booleanValue(String code) {
+        return new Element(DataTypeEnum.BOOLEAN, code);
+    }
+
+    public static Element numberValue(String code) {
+        return new Element(DataTypeEnum.NUMBER, code);
+    }
+
+    public static Element collectionValue(String code) {
+        return new Element(DataTypeEnum.COLLECTION, code);
+    }
+
+    public static Element pojoValue(String code) {
+        return new Element(DataTypeEnum.POJO, code);
+    }
+
+    public static Element jsonObjectValue(String code) {
+        return new Element(DataTypeEnum.JSONOBJECT, code);
+    }
+
+    public static Element objectValue(String code) {
+        return new Element(DataTypeEnum.OBJECT, code);
+    }
+
+    public static Element mapValue(String code) {
+        return new Element(DataTypeEnum.MAP, code);
     }
 }

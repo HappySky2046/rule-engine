@@ -146,5 +146,35 @@ public class Variable extends Value {
         return function.getFunctionName() + "," + getId();
     }
 
+    public static Variable stringValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.STRING, function);
+    }
 
+    public static Variable booleanValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.BOOLEAN, function);
+    }
+
+    public static Variable numberValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.NUMBER, function);
+    }
+
+    public static Variable collectionValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.COLLECTION, function);
+    }
+
+    public static Variable pojoValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.POJO, function);
+    }
+
+    public static Variable jsonObjectValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.JSONOBJECT, function);
+    }
+
+    public static Variable objectValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.OBJECT, function);
+    }
+
+    public static Variable mapValue(VariableFunction function) {
+        return new Variable(DataTypeEnum.MAP, function);
+    }
 }
